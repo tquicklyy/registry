@@ -1,5 +1,6 @@
 package com.registry.office.system.registry_office_system.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -24,9 +25,8 @@ public class Employee {
     @Column(name = "surname", nullable = false)
     private String surname;
 
-    @NotNull
     @Size(max = 255)
-    @Column(name = "patronymic", nullable = false)
+    @Column(name = "patronymic")
     private String patronymic;
 
     @NotNull
