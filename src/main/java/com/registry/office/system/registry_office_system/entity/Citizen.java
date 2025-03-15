@@ -1,0 +1,164 @@
+package com.registry.office.system.registry_office_system.entity;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "citizens")
+public class Citizen {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id;
+
+    @OneToMany(mappedBy = "citizen", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Address> addresses;
+
+    @OneToMany(mappedBy = "mother", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BirthRecord> birthRecordsAsMother = new ArrayList<>();
+
+    @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<BirthRecord> birthRecordsAsFather = new ArrayList<>();
+
+    @NotNull
+    @Column(name = "name", nullable = false)
+    @Size(max = 100)
+    private String name;
+
+    @NotNull
+    @Column(name = "surname", nullable = false)
+    @Size(max = 100)
+    private String surname;
+
+    @Column(name = "patronymic", nullable = true)
+    @Size(max = 100)
+    private String patronymic;
+
+    @NotNull
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
+
+    private enum Gender {
+        M, F;
+    }
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender", nullable = false)
+    private Gender gender;
+
+    @NotNull
+    @Column(name = "place_of_birth", nullable = false)
+    @Size(max = 255)
+    private String placeOfBirth;
+
+    @NotNull
+    @Column(name = "nationality", nullable = false)
+    @Size(max = 100)
+    private String nationality;
+
+    public Citizen() { }
+
+    public int getId() {
+        return id;
+    }
+
+    @Transient
+    public List<BirthRecord> getBirthRecords() {
+        List<BirthRecord> allRecords = new ArrayList<>();
+        allRecords.addAll(birthRecordsAsMother);
+        allRecords.addAll(birthRecordsAsFather);
+        return allRecords;
+    }
+
+    public List<BirthRecord> getBirthRecordsAsMother() {
+        return birthRecordsAsMother;
+    }
+
+    public List<BirthRecord> getBirthRecordsAsFather() {
+        return birthRecordsAsFather;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setPatronymic(String patronymic) {
+        this.patronymic = patronymic;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public void setBirthRecordsAsMother(List<BirthRecord> birthRecordsAsMother) {
+        this.birthRecordsAsMother = birthRecordsAsMother;
+    }
+
+    public void setBirthRecordsAsFather(List<BirthRecord> birthRecordsAsFather) {
+        this.birthRecordsAsFather = birthRecordsAsFather;
+    }
+
+}
