@@ -1,6 +1,7 @@
 package com.registry.office.system.registry_office_system.entity;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.*;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     public enum Role {
