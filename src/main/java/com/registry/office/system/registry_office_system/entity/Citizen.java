@@ -27,20 +27,6 @@ public class Citizen {
     private List<BirthRecord> birthRecordsAsFather = new ArrayList<>();
 
     @NotNull
-    @Column(name = "name", nullable = false)
-    @Size(max = 100)
-    private String name;
-
-    @NotNull
-    @Column(name = "surname", nullable = false)
-    @Size(max = 100)
-    private String surname;
-
-    @Column(name = "patronymic", nullable = true)
-    @Size(max = 100)
-    private String patronymic;
-
-    @NotNull
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
@@ -89,18 +75,6 @@ public class Citizen {
         return addresses;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
@@ -123,18 +97,6 @@ public class Citizen {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
