@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/css/register.css" th:href="@{/css/register.css}" rel="stylesheet" />
+    <title>Регистрация</title>
+</head>
+
+<body>
+
+    <header>
+        <div class="header">
+            <p>ЗАГС</p>
+        </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="header-of-register-box">
+                <h1>Зарегистрироваться</h1>
+            </div>
+            <div class="register-box">
+                <form th:action="@{/register}" method="post">
+                    <input type="text" name="name" placeholder="Имя" required>
+                    <input type="text" name="surname" placeholder="Фамилия" required>
+                    <input type="text" name="patronymic" placeholder="Отчество при наличии">
+                    <input type="date" name="dateOfBirth" required>
+                    <input type="text" name="username" placeholder="Логин" required>
+                    <input type="password" name="password" placeholder="Пароль" required>
+                    <button>Зарегистрироваться</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+
+    </footer>
+
+</body>
+
+</html>
