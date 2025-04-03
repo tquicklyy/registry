@@ -49,7 +49,11 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 2.5em;
+    gap: 2.2em;
+}
+
+form .input-div .error-message {
+    color: red;
 }
 
 input {
@@ -59,10 +63,20 @@ input {
     width: 500px;
     border: none;
     border-bottom: 1px solid;
+    outline: none;
+    padding-left: 0.1em;
 }
 
-input[type="date"] {
+input::placeholder {
+    padding-left: 0.1em;
+}
+
+.input-date-with-opacity {
     opacity: 0.6;
+}
+
+.input-date-without-opacity {
+    opacity: 1;
 }
 
 button {

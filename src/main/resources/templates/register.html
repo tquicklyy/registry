@@ -22,13 +22,37 @@
                 <h1>Зарегистрироваться</h1>
             </div>
             <div class="register-box">
-                <form th:action="@{/register}" method="post">
-                    <input type="text" name="name" placeholder="Имя" required>
-                    <input type="text" name="surname" placeholder="Фамилия" required>
-                    <input type="text" name="patronymic" placeholder="Отчество при наличии">
-                    <input type="date" name="dateOfBirth" required>
-                    <input type="text" name="username" placeholder="Логин" required>
-                    <input type="password" name="password" placeholder="Пароль" required>
+                <form th:action="@{/register}" th:object="${user}" method="POST">
+                    <div class="input-div">
+                        <input type="text" th:field="*{name}" placeholder="Имя" required> <br>
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="text" th:field="*{surname}" placeholder="Фамилия" required> <br>
+                        <p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="text" th:field="*{patronymic}" placeholder="Отчество при наличии"> <br>
+                        <p th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input id="dateOfBirth" type="date" th:field="*{dateOfBirth}" oninput="updateInputDateClass(this)" required> <br>
+                        <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="text" th:field="*{username}" placeholder="Логин" required> <br>
+                        <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="password" th:field="*{password}" placeholder="Пароль" required> <br>
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></p>
+                    </div>
+
                     <button>Зарегистрироваться</button>
                 </form>
             </div>
@@ -38,6 +62,23 @@
     <footer>
 
     </footer>
+
+    <script>
+        function updateInputDateClass(inputDate) {
+            if (inputDate.value) {
+                inputDate.classList.add('input-date-without-opacity');
+                inputDate.classList.remove('input-date-with-opacity');
+            } else {
+                inputDate.classList.add('input-date-with-opacity');
+                inputDate.classList.remove('input-date-without-opacity');
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var input = document.getElementById("dateOfBirth");
+            updateInputDateClass(input);
+        });
+    </script>
 
 </body>
 
