@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.*;
 import org.hibernate.type.descriptor.java.LongJavaType;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +26,7 @@ public class User implements UserDetails {
     }
 
     @Enumerated(EnumType.STRING) // Указываем, что это Enum, и будем хранить его в строковом формате
-    private Role role;
+    private Role role = Role.CITIZEN;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +35,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
     @NotNull
     @Column(name = "name", nullable = false)
