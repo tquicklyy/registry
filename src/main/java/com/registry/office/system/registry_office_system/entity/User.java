@@ -6,16 +6,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.*;
 import org.hibernate.type.descriptor.java.LongJavaType;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
 
     public enum Role {
         CITIZEN,
@@ -57,39 +51,36 @@ public class User implements UserDetails {
     @JoinColumn(name = "person_id")
     private Object person;
 
-    @Override
     public String getUsername() {
         return username;
     }
 
-    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public Role getRole() {
+        return role;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Object getPerson() {

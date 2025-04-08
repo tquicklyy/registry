@@ -26,10 +26,6 @@ public class Citizen {
     @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BirthRecord> birthRecordsAsFather = new ArrayList<>();
 
-    @NotNull
-    @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
-
     private enum Gender {
         M, F;
     }
@@ -75,10 +71,6 @@ public class Citizen {
         return addresses;
     }
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
     public Gender getGender() {
         return gender;
     }
@@ -97,10 +89,6 @@ public class Citizen {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
     }
 
     public void setGender(Gender gender) {
