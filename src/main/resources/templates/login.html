@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Вход</title>
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <link href="../static/css/login.css" th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <p>ЗАГС</p>
+    </div>
+</header>
+
+<section>
+
+    <div class="container">
+        <div class="header-of-register-box">
+            <h1>Войти</h1>
+        </div>
+        <div class="register-box">
+            <form th:action="@{/login}" th:object="${user}" method="POST">
+
+                <div class="input-div">
+                    <input type="text" th:field="*{username}" placeholder="Логин" required> <br>
+                    <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></p>
+                </div>
+
+                <div class="input-div">
+                    <input type="password" th:field="*{password}" placeholder="Пароль" required> <br>
+                    <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></p>
+                </div>
+
+                <button>Войти</button>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

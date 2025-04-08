@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    font-family: "Unbounded", sans-serif;
+    font-weight: 200;
+    font-size: 3em;
+}
+
+.header p {
+    margin: auto;
+    margin-top: 0.5em;
+    color: #FFC300;
+}
