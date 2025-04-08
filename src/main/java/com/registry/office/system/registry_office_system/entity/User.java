@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.*;
 import org.hibernate.type.descriptor.java.LongJavaType;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -42,6 +44,10 @@ public class User {
     @Column(name = "patronymic", nullable = true)
     @Size(max = 100)
     private String patronymic;
+
+    @NotNull
+    @Column(name = "date_of_birth", nullable = false)
+    private LocalDate dateOfBirth;
 
     @Any
     @Column(name = "content_type")
@@ -113,5 +119,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public @NotNull LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(@NotNull LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
