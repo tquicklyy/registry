@@ -6,18 +6,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.*;
 import org.hibernate.type.descriptor.java.LongJavaType;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails {
+public class User {
 
     public enum Role {
         CITIZEN,
@@ -26,7 +18,7 @@ public class User implements UserDetails {
     }
 
     @Enumerated(EnumType.STRING) // Указываем, что это Enum, и будем хранить его в строковом формате
-    private Role role = Role.CITIZEN;
+    private Role role;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +27,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    private boolean enabled = true;
+    private boolean enabled;
 
     @NotNull
     @Column(name = "name", nullable = false)
@@ -51,10 +43,6 @@ public class User implements UserDetails {
     @Size(max = 100)
     private String patronymic;
 
-    @NotNull
-    @Column(name = "date_of_birth", nullable = false)
-    private LocalDate dateOfBirth;
-
     @Any
     @Column(name = "content_type")
     @AnyDiscriminatorValue(discriminator = "Citizen", entity = Citizen.class)
@@ -63,39 +51,36 @@ public class User implements UserDetails {
     @JoinColumn(name = "person_id")
     private Object person;
 
-    @Override
     public String getUsername() {
         return username;
     }
 
-    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public boolean isEnabled() {
         return enabled;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public Role getRole() {
+        return role;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Object getPerson() {
@@ -128,37 +113,5 @@ public class User implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
