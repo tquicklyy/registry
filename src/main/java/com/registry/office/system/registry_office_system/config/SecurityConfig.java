@@ -42,6 +42,12 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/", true)
                         .permitAll()
                 )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("remember-me", "JSESSIONID"))
                 .rememberMe(new Customizer<RememberMeConfigurer<HttpSecurity>>() {
                     @Override
                     public void customize(RememberMeConfigurer<HttpSecurity> httpSecurityRememberMeConfigurer) {

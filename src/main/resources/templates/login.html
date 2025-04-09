@@ -11,7 +11,7 @@
 
 <header>
     <div class="header">
-        <p>ЗАГС</p>
+        <p><a class="header-link" href="/">ЗАГС</a></p>
     </div>
 </header>
 
@@ -25,13 +25,19 @@
             <form th:action="@{/login}" th:object="${user}" method="POST">
 
                 <div class="input-div">
-                    <input type="text" th:field="*{username}" placeholder="Логин" required> <br>
+                    <input class="login-input" type="text" th:field="*{username}" placeholder="Логин" required> <br>
                     <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></p>
                 </div>
 
                 <div class="input-div">
-                    <input type="password" th:field="*{password}" placeholder="Пароль" required> <br>
+                    <input class="login-input" type="password" th:field="*{password}" placeholder="Пароль" required> <br>
                     <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></p>
+                </div>
+
+                <div class="input-div remember-me-container">
+                    <input type="checkbox" name="remember-me" id="remember-me" >
+                    <label for="remember-me">Запомнить меня</label>
+                    <p th:if="${loginError}" th:text="${errorMessage}" class="error-message"></p>
                 </div>
 
                 <button>Войти</button>

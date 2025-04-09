@@ -35,7 +35,7 @@ form .input-div .error-message {
     color: red;
 }
 
-input {
+.login-input {
     font-family: "Inter", sans-serif;
     font-weight: 300;
     font-size: 1.5em;
@@ -44,6 +44,10 @@ input {
     border-bottom: 1px solid;
     outline: none;
     padding-left: 0.1em;
+}
+
+.remember-me-container {
+    width: 500px;
 }
 
 input::placeholder {
@@ -72,8 +76,12 @@ button {
 }
 
 @media (max-width: 600px) {
-    input {
+    .login-input,
+    .remember-me-container {
         width: 400px;
+    }
+
+    .login-input {
         font-size: 1.25em;
     }
 }
@@ -89,8 +97,12 @@ button {
         margin-bottom: 1.7em;
     }
 
-    input {
+    .login-input,
+    .remember-me-container {
         width: 300px;
+    }
+
+    .login-input {
         font-size: 1em;
     }
 }
