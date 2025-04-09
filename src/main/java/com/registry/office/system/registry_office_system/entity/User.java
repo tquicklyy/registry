@@ -2,12 +2,13 @@ package com.registry.office.system.registry_office_system.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import org.hibernate.annotations.*;
 import org.hibernate.type.descriptor.java.LongJavaType;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
 
 @Entity
 @Table(name = "users")
@@ -20,32 +21,44 @@ public class User {
     }
 
     @Enumerated(EnumType.STRING) // Указываем, что это Enum, и будем хранить его в строковом формате
-    private Role role;
+    private Role role = Role.CITIZEN;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(min = 4, max = 100, message = "Логин должен содержать от 4 до 100 символов")
+    @Column(name = "username", unique = true)
     private String username;
+
+    @NotBlank
+    @Size(min = 8, max = 100, message = "Пароль должен содержать от 8 до 100 символов")
+    @Column(name = "password")
     private String password;
 
-    private boolean enabled;
+    @Column(name = "enabled")
+    private boolean enabled = true;
 
-    @NotNull
+    @NotBlank
     @Column(name = "name", nullable = false)
-    @Size(max = 100)
+    @Pattern(regexp = "^[А-Яа-яA-Za-z\\-\\s]+$")
+    @Size(max = 100, message = "Размер имени не должен превышать 100 символов")
     private String name;
 
-    @NotNull
+    @NotBlank
     @Column(name = "surname", nullable = false)
-    @Size(max = 100)
+    @Pattern(regexp = "^[А-Яа-яA-Za-z\\-\\s]+$")
+    @Size(max = 100, message = "Размер фамилии не должен превышать 100 символов")
     private String surname;
 
     @Column(name = "patronymic", nullable = true)
-    @Size(max = 100)
+    @Pattern(regexp = "^[А-Яа-яA-Za-z\\-\\s]+$")
+    @Size(max = 100, message = "Размер отчества не должен превышать 100 символов")
     private String patronymic;
 
     @NotNull
+    @Past(message = "Введена некорректная дата рождения")
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
