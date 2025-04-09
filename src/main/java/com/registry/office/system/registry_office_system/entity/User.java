@@ -5,6 +5,11 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
 import org.hibernate.annotations.*;
 import org.hibernate.type.descriptor.java.LongJavaType;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -59,6 +64,7 @@ public class User {
 
     @NotNull
     @Past(message = "Введена некорректная дата рождения")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
