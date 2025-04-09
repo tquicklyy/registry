@@ -18,3 +18,8 @@
     margin-top: 0.5em;
     color: #FFC300;
 }
+
+.header-link {
+    text-decoration: none;
+    color: #FFC300;
+}
