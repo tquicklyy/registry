@@ -23,6 +23,9 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String confirmRegister(@Valid @ModelAttribute("user") User user, BindingResult result) {
+        if(userService.existsByUsername(user.getUsername())) {
+            result.rejectValue("username", "user.username.exists", "Этот логин уже занят");
+        }
         if(result.hasErrors()) return "register";
         userService.registerUser(user);
         return "redirect:/login";
