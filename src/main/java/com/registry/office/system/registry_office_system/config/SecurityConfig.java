@@ -34,7 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/login", "/register", "/images/**", "/css/**").permitAll()
                         .requestMatchers("/documents").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -75,4 +75,5 @@ public class SecurityConfig {
     public SpringSecurityDialect springSecurityDialect() {
         return new SpringSecurityDialect();
     }
+
 }
