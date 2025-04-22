@@ -36,8 +36,16 @@ public class RegisterController {
             result.rejectValue("username", "user.username.exists", "Этот логин уже занят");
         }
 
-        if(userService.existsBySnils(user.getSnils()) && userService.findBySnils(user.getSnils()).isRegistered()) {
+        if(userService.existsBySnils(user.getSnils())) {
             result.rejectValue("snils", "user.snils.exists", "Пользователь с данным СНИЛС'ом уже существует");
+        }
+
+        if(userService.existsByEmail(user.getEmail())) {
+            result.rejectValue("email", "user.email.exists", "Этот адрес электронной почты уже занят");
+        }
+
+        if(userService.existsByPhone(user.getPhone())) {
+            result.rejectValue("phone", "user.phone.exists", "Этот номер телефона уже занят");
         }
 
         if(result.hasErrors()) return "register";

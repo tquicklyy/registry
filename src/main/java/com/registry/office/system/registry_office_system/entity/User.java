@@ -5,14 +5,10 @@ import com.registry.office.system.registry_office_system.enums.Role;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.*;
-import org.hibernate.annotations.*;
-import org.hibernate.type.descriptor.java.LongJavaType;
 import org.hibernate.annotations.Check;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
 
 @Entity
 @Table(name = "users")
@@ -80,14 +76,14 @@ public class User {
     @Size(max = 20, message = "Номер телефона не должен превышать 20 символов")
     @Pattern(regexp = "^\\+?([78])[-\\s]?[0-9]{3}[-\\s]?[0-9]{3}[-\\s]?[0-9]{2}[-\\s]?[0-9]{2}$",
             message = "Неверный формат номера телефона")
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = false, unique = true)
     private String phone;
 
     @NotNull
     @Size(max = 255, message = "Номер телефона не должен превышать 255 символов")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "Неверный формат электронной почты")
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "person_id")

@@ -54,6 +54,13 @@ public class UserService {
         return userRepository.existsBySnils(snils);
     }
 
+    public boolean existsByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
+    public boolean existsByPhone(String phone) {
+        return userRepository.existsByPhone(phone);
+    }
+
     public User findBySnils(String snils) {
         return userRepository.findBySnils(snils).get();
     }
