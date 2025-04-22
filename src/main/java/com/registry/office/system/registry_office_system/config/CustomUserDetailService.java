@@ -2,6 +2,7 @@ package com.registry.office.system.registry_office_system.config;
 
 import com.registry.office.system.registry_office_system.entity.User;
 import com.registry.office.system.registry_office_system.repository.user.UserRepository;
+import com.registry.office.system.registry_office_system.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,9 +17,12 @@ public class CustomUserDetailService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userService.findByUsername(username);
         return user.map(CustomUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException(username + "There is not such user in REPO."));
     }
