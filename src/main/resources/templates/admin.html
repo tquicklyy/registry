@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Администрация</title>
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet"/>
+    <link href="../static/css/admin.css" th:href="@{/css/admin.css}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <h1>Выберите действие</h1>
+
+        <a class="button-for-redirect" href="birth-record">Регистрация рождения</a>
+        <a class="button-for-redirect" href="marriage-registration">Регистрация брака</a>
+        <a class="button-for-redirect" href="death-registration">Регистрация смерти</a>
+        <a class="button-for-redirect" href="divorce-registration">Расторжение брака</a>
+    </div>
+</section>
+</body>
+</html>
