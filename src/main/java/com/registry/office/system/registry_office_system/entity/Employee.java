@@ -3,6 +3,7 @@ package com.registry.office.system.registry_office_system.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 
@@ -16,19 +17,13 @@ public class Employee {
     private int id;
 
     @NotNull
-    @Size(max = 255)
-    @Column(name = "position", nullable = false)
-    private String position;
-
-    @NotNull
     @Column(name = "hire_date", nullable = false)
-    private LocalDate hireDate;
+    private LocalDate hireDate = LocalDate.now();
 
     public Employee() {
     }
 
-    public Employee(String position, LocalDate hireDate) {
-        this.position = position;
+    public Employee(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 
@@ -36,20 +31,12 @@ public class Employee {
         this.id = id;
     }
 
-    public void setPosition(@NotNull @Size(max = 255) String position) {
-        this.position = position;
-    }
-
-    public void setHireDate(@NotNull LocalDate hireDate) {
+    public void setHireDate(LocalDate hireDate) {
         this.hireDate = hireDate;
     }
 
     public int getId() {
         return id;
-    }
-
-    public @NotNull @Size(max = 255) String getPosition() {
-        return position;
     }
 
     public @NotNull LocalDate getHireDate() {
@@ -60,7 +47,6 @@ public class Employee {
     public String toString() {
         return "Employee{" +
                 "id=" + id +
-                ", position='" + position + '\'' +
                 ", hireDate=" + hireDate +
                 '}';
     }
