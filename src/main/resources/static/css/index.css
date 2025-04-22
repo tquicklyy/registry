@@ -1,0 +1,151 @@
+.navbar {
+    font-size: 1.5em;
+    font-family: "Inter", sans-serif;
+}
+
+.navbar-brand {
+    font-size: 2em;
+    padding: 0;
+    margin-left: 10px;
+}
+
+.navbar-brand:hover {
+    color: #FFC300;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.d-flex li {
+    list-style: none;
+}
+
+a.current {
+    text-decoration: underline;
+}
+
+.login {
+    margin-right: 10px;
+}
+
+body {
+    background-image: url("/images/index-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Inter, sans-serif;
+}
+
+.register.nav-link.active,
+.my-documents.nav-link.active {
+    padding: 4px;
+    margin: 4px;
+    text-align: center;
+    font-weight: 500;
+    border-radius: 0.5em;
+    width: 220px;
+}
+
+.center-register,
+.register.nav-link.active,
+.my-documents.nav-link.active{
+    border: none;
+    background-color: #FFC300;
+    color: white;
+    cursor: pointer;
+}
+
+.center-register {
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border-radius: 0.5em;
+    width: 500px;
+    height: 100px;
+    font-size: 2.3em;
+}
+
+section {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    padding-left: 2em;
+    font-weight: 500;
+    gap: 2.2em;
+    padding-bottom: 1em;
+}
+
+section h1 {
+    font-size: 4em;
+    font-weight: 700;
+}
+
+@media (max-width: 991px) {
+    .center-register {
+        font-size: 2em;
+        width: 400px;
+        height: 80px;
+    }
+
+    section h1 {
+        font-size: 3.5em;
+    }
+
+    .register.nav-link.active {
+        margin: 0;
+    }
+
+    .navbar-nav .nav-link {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .register.nav-link.active {
+        margin: 8px;
+        padding: 0;
+    }
+}
+
+@media (max-width: 800px) {
+    .center-register {
+        font-size: 2.1em;
+        width: 400px;
+        height: 80px;
+    }
+
+    section h1 {
+        font-size: 3em;
+    }
+}
+
+@media (max-width: 670px) {
+    .center-register {
+        font-size: 1.8em;
+        width: 350px;
+        height: 70px;
+    }
+
+    section h1 {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 560px) {
+    .center-register {
+        font-size: 1.5em;
+        width: 300px;
+        height: 60px;
+    }
+
+    section h1 {
+        font-size: 2em;
+    }
+}
