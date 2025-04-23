@@ -35,13 +35,28 @@
                     </div>
 
                     <div class="input-div">
-                        <input type="text" th:field="*{patronymic}" placeholder="Отчество при наличии"> <br>
+                        <input type="text" th:field="*{patronymic}" placeholder="Отчество (необязательно)"> <br>
                         <p th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}" class="error-message"></p>
                     </div>
 
                     <div class="input-div">
                         <input id="dateOfBirth" type="date" th:field="*{dateOfBirth}" oninput="updateInputDateClass(this)" required> <br>
                         <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="text" th:field="*{snils}" placeholder="СНИЛС"> <br>
+                        <p th:if="${#fields.hasErrors('snils')}" th:errors="*{snils}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="text" th:field="*{email}" placeholder="Электронная почта (необязательно)"> <br>
+                        <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div">
+                        <input type="text" th:field="*{phone}" placeholder="Номер телефона"> <br>
+                        <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="error-message"></p>
                     </div>
 
                     <div class="input-div">
@@ -54,6 +69,20 @@
                         <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></p>
                     </div>
 
+                    <div class="input-div">
+                        <select th:field="*{gender}"required>
+                            <option value="" selected hidden>Пол</option>
+                            <option value="MALE">Мужской</option>
+                            <option value="FEMALE">Женский</option>
+                        </select>
+                        <p th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" class="error-message"></p>
+                    </div>
+
+                    <div class="input-div input-div-for-checkbox">
+                        <input id="agree-checkbox" type="checkbox" name="isEmployee" value="true" >
+                        <label for="agree-checkbox" class="checkbox-label">Я работник</label>
+                    </div>
+
                     <button>Зарегистрироваться</button>
                 </form>
             </div>
@@ -64,23 +93,7 @@
 
     </footer>
 
-    <script>
-        function updateInputDateClass(inputDate) {
-            if (inputDate.value) {
-                inputDate.classList.add('input-date-without-opacity');
-                inputDate.classList.remove('input-date-with-opacity');
-            } else {
-                inputDate.classList.add('input-date-with-opacity');
-                inputDate.classList.remove('input-date-without-opacity');
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            var input = document.getElementById("dateOfBirth");
-            updateInputDateClass(input);
-        });
-    </script>
-
+    <script src="/js/register.js"></script>
 </body>
 
 </html>

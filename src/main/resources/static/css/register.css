@@ -16,6 +16,8 @@ section {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 1em;
+    padding-top: 2em;
 }
 
 .header-of-register-box h1 {
@@ -35,15 +37,19 @@ form .input-div .error-message {
     color: red;
 }
 
-input {
+input,
+select {
     font-family: "Inter", sans-serif;
     font-weight: 300;
     font-size: 1.5em;
     width: 500px;
-    border: none;
-    border-bottom: 1px solid;
     outline: none;
     padding-left: 0.1em;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid;
 }
 
 input::placeholder {
@@ -58,6 +64,26 @@ input::placeholder {
     opacity: 1;
 }
 
+#agree-checkbox {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.checkbox-label {
+    font-size: 1.5em;
+    cursor: pointer;
+}
+
+.input-div-for-checkbox {
+    width: 500px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0.5em;
+}
+
 button {
     font-family: Inter, sans-serif;
     font-weight: 500;
@@ -69,12 +95,27 @@ button {
     background-color: #FFC300;
     color: white;
     cursor: pointer;
+    margin-bottom: 1em;
 }
 
 @media (max-width: 600px) {
-    input {
+    input,
+    select {
         width: 400px;
         font-size: 1.25em;
+    }
+
+    .input-div-for-checkbox {
+        width: 400px;
+    }
+
+    .checkbox-label {
+        font-size: 1.25em;
+    }
+
+    #agree-checkbox {
+        width: 20px;
+        height: 20px;
     }
 }
 
@@ -89,9 +130,23 @@ button {
         margin-bottom: 1.7em;
     }
 
-    input {
+    input,
+    select {
         width: 300px;
         font-size: 1em;
+    }
+
+    .input-div-for-checkbox {
+        width: 300px;
+    }
+
+    .checkbox-label {
+        font-size: 1em;
+    }
+
+    #agree-checkbox {
+        width: 15px;
+        height: 15px;
     }
 }
 
