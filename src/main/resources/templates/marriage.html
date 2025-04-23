@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Вход</title>
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <link href="../static/css/marriage.css" th:href="@{/css/marriage.css}" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <h1>Регистрация брака</h1>
+        <form class="snils-form" th:action="@{/marriage-registration}" method="POST">
+            <div class="snils-inputs">
+                <label class="snils-label">Муж<br>
+                    <input name="husband-snils" type="text" class="snils-input" placeholder="СНИЛС">
+                </label>
+                <br>
+
+                <label class="snils-label">Жена<br>
+                    <input name="wife-snils" type="text" class="snils-input" placeholder="СНИЛС">
+                </label>
+            </div>
+
+            <button>Зарегистрировать брак</button>
+        </form>
+    </div>
+</section>
+
+</body>
+</html>
