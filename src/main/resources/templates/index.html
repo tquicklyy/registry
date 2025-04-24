@@ -36,9 +36,15 @@
                         </li>
                     </ul>
 
-                    <div sec:authorize="isAuthenticated()">
+                    <div sec:authorize="isAuthenticated() and !hasRole('ROLE_EMPLOYEE')">
                         <form class="d-flex">
                             <a class="nav-link active my-documents" href="/my-documents">Мои документы</a>
+                        </form>
+                    </div>
+
+                    <div sec:authorize="isAuthenticated() and hasRole('ROLE_EMPLOYEE')">
+                        <form class="d-flex">
+                            <a class="nav-link active my-documents" href="/admin">Админка</a>
                         </form>
                     </div>
 

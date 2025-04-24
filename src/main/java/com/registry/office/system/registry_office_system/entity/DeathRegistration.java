@@ -2,6 +2,8 @@ package com.registry.office.system.registry_office_system.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -14,12 +16,13 @@ public class DeathRegistration {
     @Column(name = "id")
     private int id;
 
-    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "citizen_id", nullable = false)
     private Citizen citizen;
 
     @NotNull
+    @Past(message = "Введена некорректная дата смерти")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "death_date", nullable = false)
     private LocalDate deathDate;
 
@@ -29,7 +32,7 @@ public class DeathRegistration {
 
     @NotNull
     @Column(name = "registration_date", nullable = false)
-    private LocalDate registrationDate;
+    private LocalDate registrationDate = LocalDate.now();
 
     public DeathRegistration() {
     }

@@ -33,10 +33,6 @@ section {
     gap: 2.2em;
 }
 
-form .input-div .error-message {
-    color: red;
-}
-
 .login-input {
     font-family: "Inter", sans-serif;
     font-weight: 300;

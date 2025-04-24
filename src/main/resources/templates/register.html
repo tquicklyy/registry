@@ -40,12 +40,12 @@
                     </div>
 
                     <div class="input-div">
-                        <input id="dateOfBirth" type="date" th:field="*{dateOfBirth}" oninput="updateInputDateClass(this)" required> <br>
+                        <input class="date-input" type="date" th:field="*{dateOfBirth}" oninput="updateInputDateClass(this)" required> <br>
                         <p th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="error-message"></p>
                     </div>
 
                     <div class="input-div">
-                        <input type="text" th:field="*{snils}" placeholder="СНИЛС"> <br>
+                        <input type="text" th:field="*{snils}" placeholder="СНИЛС" required> <br>
                         <p th:if="${#fields.hasErrors('snils')}" th:errors="*{snils}" class="error-message"></p>
                     </div>
 
@@ -93,7 +93,7 @@
 
     </footer>
 
-    <script src="/js/register.js"></script>
+    <script src="/js/base.js"></script>
 </body>
 
 </html>

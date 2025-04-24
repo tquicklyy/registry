@@ -14,6 +14,9 @@ public class Citizen {
     @Column(name = "id")
     private int id;
 
+    @OneToOne(mappedBy = "citizen")
+    private DeathRegistration deathRegistration;
+
     @OneToMany(mappedBy = "mother", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BirthRecord> birthRecordsAsMother = new ArrayList<>();
 
@@ -53,5 +56,14 @@ public class Citizen {
     public void setBirthRecordsAsFather(List<BirthRecord> birthRecordsAsFather) {
         this.birthRecordsAsFather = birthRecordsAsFather;
     }
+
+    public DeathRegistration getDeathRegistration() {
+        return deathRegistration;
+    }
+
+    public void setDeathRegistration(DeathRegistration deathRegistration) {
+        this.deathRegistration = deathRegistration;
+    }
+
 
 }

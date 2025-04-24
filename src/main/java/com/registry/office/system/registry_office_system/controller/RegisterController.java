@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Objects;
+
 @Controller
 public class RegisterController {
 
@@ -32,6 +34,14 @@ public class RegisterController {
             user.setRole(Role.EMPLOYEE);
         }
 
+        if(Objects.equals(user.getEmail(), "")) {
+            user.setEmail(null);
+        }
+
+        if(Objects.equals(user.getPatronymic(), "")) {
+            user.setPatronymic(null);
+        }
+
         if(userService.existsByUsername(user.getUsername())) {
             result.rejectValue("username", "user.username.exists", "Этот логин уже занят");
         }
@@ -40,7 +50,7 @@ public class RegisterController {
             result.rejectValue("snils", "user.snils.exists", "Пользователь с данным СНИЛС'ом уже существует");
         }
 
-        if(userService.existsByEmail(user.getEmail())) {
+        if(user.getEmail() != null && userService.existsByEmail(user.getEmail())) {
             result.rejectValue("email", "user.email.exists", "Этот адрес электронной почты уже занят");
         }
 
@@ -50,8 +60,8 @@ public class RegisterController {
 
         if(result.hasErrors()) return "register";
 
-        if(userService.existsBySnils(user.getSnils()) && !userService.findBySnils(user.getSnils()).isRegistered()) {
-            User registeredUser = userService.updateUser(userService.findBySnils(user.getSnils()), user);
+        if(userService.existsBySnils(user.getSnils()) && !userService.findBySnils(user.getSnils()).get().isRegistered()) {
+            User registeredUser = userService.updateUser(userService.findBySnils(user.getSnils()).get(), user);
             userService.saveUser(registeredUser);
         } else {
             user.setRegistered(true);
