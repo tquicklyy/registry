@@ -61,8 +61,8 @@ public class UserService {
         return userRepository.existsByPhone(phone);
     }
 
-    public User findBySnils(String snils) {
-        return userRepository.findBySnils(snils).get();
+    public Optional<User> findBySnils(String snils) {
+        return userRepository.findBySnils(snils);
     }
 
     public Optional<User> findByUsername(String username) {

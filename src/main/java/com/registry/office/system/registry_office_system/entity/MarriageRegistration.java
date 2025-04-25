@@ -27,7 +27,7 @@ public class MarriageRegistration {
 
     @NotNull
     @Column(name = "registration_date", nullable = false)
-    private LocalDate registrationDate;
+    private LocalDate registrationDate = LocalDate.now();
 
     @Column(name = "divorce_date")
     private LocalDate divorceDate;
