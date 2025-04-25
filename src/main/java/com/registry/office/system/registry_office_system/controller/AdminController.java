@@ -33,6 +33,9 @@ public class AdminController {
     @Autowired
     DivorceRegistrationRepository divorceRegistrationRepository;
 
+    @Autowired
+    MarriageRegistrationRepository marriageRegistrationRepository;
+
     @GetMapping("")
     public String getAdminForm() {
         return "admin";
@@ -45,7 +48,85 @@ public class AdminController {
 
     @GetMapping("/marriage-registration")
     public String getMarriageRegistrationForm() {
-        return "marriage-registration";
+        return "marriage";
+    }
+
+    @PostMapping("/marriage-registration")
+    public String confirmMarriageRegistration(
+            @RequestParam(name = "husbandSnils") String husbandSnils,
+            @RequestParam(name = "wifeSnils") String wifeSnils,
+            @RequestParam(name = "registrationDate") LocalDate registrationDate,
+            Model model) {
+        model.addAttribute("husbandSnils", husbandSnils);
+        model.addAttribute("wifeSnils", wifeSnils);
+        model.addAttribute("registrationDate", registrationDate);
+
+        boolean husbandSnilsMatches = husbandSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}$");
+        boolean wifeSnilsMatches = wifeSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
+        boolean dateCheck = registrationDate.isBefore(LocalDate.now());
+
+        if (!husbandSnilsMatches) {
+            model.addAttribute("husbandSnilsError", "Неверный формат СНИЛС'а");
+        }
+        if (!wifeSnilsMatches) {
+            model.addAttribute("wifeSnilsError", "Неверный формат СНИЛС'а");
+        }
+        if (!dateCheck) {
+            model.addAttribute("registrationDateError", "Некорректная дата");
+        }
+
+        if (!husbandSnilsMatches || !wifeSnilsMatches || !dateCheck) {
+            return "marriage";
+        }
+
+        Optional<User> husbandOptional = userService.findBySnils(husbandSnils);
+        Optional<User> wifeOptional = userService.findBySnils(wifeSnils);
+
+        if (husbandOptional.isEmpty() || !husbandOptional.get().isEnabled()) {
+            model.addAttribute("husbandSnilsError", "Пользователь не найден");
+        }
+        if (wifeOptional.isEmpty() || !wifeOptional.get().isEnabled()) {
+            model.addAttribute("wifeSnilsError", "Пользователь не найден");
+        }
+
+        if (husbandOptional.isEmpty() || !husbandOptional.get().isEnabled() || wifeOptional.isEmpty() || !wifeOptional.get().isEnabled()) {
+            return "marriage";
+        }
+
+        Citizen husband = citizenRepository.findById(husbandOptional.get().getPersonId()).get();
+        Citizen wife = citizenRepository.findById(wifeOptional.get().getPersonId()).get();
+
+        boolean isMarriagePossible = true;
+
+        for (MarriageRegistration marriageRegistration: husband.getMarriagesAsHusband()) {
+            if (marriageRegistration.getDivorceDate() == null) {
+                model.addAttribute("husbandSnilsError", "Пользователь состоит в браке");
+                isMarriagePossible = false;
+                break;
+            }
+        }
+
+        for (MarriageRegistration marriageRegistration: wife.getMarriagesAsWife()) {
+            if (marriageRegistration.getDivorceDate() == null) {
+                model.addAttribute("wifeSnilsError", "Пользователь состоит в браке");
+                isMarriagePossible = false;
+                break;
+            }
+        }
+
+        if (!isMarriagePossible) {
+            return "marriage";
+        }
+
+        MarriageRegistration marriageRegistration = new MarriageRegistration();
+        marriageRegistration.setHusband(husband);
+        marriageRegistration.setWife(wife);
+        marriageRegistration.setRegistrationDate(registrationDate);
+        marriageRegistrationRepository.save(marriageRegistration);
+
+        model.addAttribute("confirmMarriageMessage", "Запись добавлена!");
+
+        return "marriage";
     }
 
     @GetMapping("/death-registration")
