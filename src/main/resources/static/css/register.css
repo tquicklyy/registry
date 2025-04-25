@@ -33,10 +33,6 @@ section {
     gap: 2.2em;
 }
 
-form .input-div .error-message {
-    color: red;
-}
-
 input,
 select {
     font-family: "Inter", sans-serif;
@@ -54,14 +50,6 @@ input {
 
 input::placeholder {
     padding-left: 0.1em;
-}
-
-.input-date-with-opacity {
-    opacity: 0.6;
-}
-
-.input-date-without-opacity {
-    opacity: 1;
 }
 
 #agree-checkbox {

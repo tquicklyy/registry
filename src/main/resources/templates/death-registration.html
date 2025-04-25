@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Регистрация смерти</title>
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <link href="../static/css/death-registration.css" th:href="@{/css/death-registration.css}" rel="stylesheet" />
+</head>
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <h1>Регистрация смерти</h1>
+        <form class="snils-form" th:action="@{/admin/death-registration}" th:object="${deathRegistration}" method="POST">
+            <div class="inputs">
+                <label>
+                    <input name="personSnils" type="text" class="inputs-input" placeholder="СНИЛС" th:value="${personSnils}" required>
+                    <p th:if="${personSnilsError}" th:text="${personSnilsError}" class="error-message"></p>
+                </label>
+
+                <label>
+                    <input class="date-input inputs-input" type="date" th:field="*{deathDate}" oninput="updateInputDateClass(this)" placeholder="Дата смерти" required> <br>
+                    <p th:if="${#fields.hasErrors('deathDate')}" th:errors="*{deathDate}" class="error-message"></p>
+                </label>
+
+                <label>
+                    <input th:field="*{causeOfDeath}" type="text" class="inputs-input" placeholder="Причина смерти" required>
+                </label>
+
+                <p th:if="${confirmDeathError}" th:text="${confirmDeathError}" class="error-message"></p>
+            </div>
+
+            <button>Зарегистрировать смерть</button>
+        </form>
+    </div>
+</section>
+
+<script src="/js/base.js"></script>
+
+</body>
+</html>

@@ -74,16 +74,15 @@ public class User {
 
     @NotNull
     @Size(max = 20, message = "Номер телефона не должен превышать 20 символов")
-    @Pattern(regexp = "^\\+?([78])[-\\s]?[0-9]{3}[-\\s]?[0-9]{3}[-\\s]?[0-9]{2}[-\\s]?[0-9]{2}$",
+    @Pattern(regexp = "^8[0-9]{10}$",
             message = "Неверный формат номера телефона")
     @Column(name = "phone", nullable = false, unique = true)
     private String phone;
 
-    @NotNull
     @Size(max = 255, message = "Номер телефона не должен превышать 255 символов")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+    @Pattern(regexp = "^$|^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
             message = "Неверный формат электронной почты")
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "person_id")
