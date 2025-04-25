@@ -124,6 +124,7 @@ public class AdminController {
         Citizen childCitizen = new Citizen();
         childCitizen = citizenRepository.save(childCitizen);
         child.setPersonId(childCitizen.getId());
+        child.setPerson(childCitizen);
 
         BirthRecord birthRecord = new BirthRecord();
         Citizen citizenFather = citizenRepository.findById(husbandOptional.get().getPersonId()).get();
@@ -132,6 +133,7 @@ public class AdminController {
         birthRecord.setMother(citizenMother);
         birthRecord.setChild(childCitizen);
         birthRecordRepository.save(birthRecord);
+        userService.registerUser(child);
 
         model.addAttribute("birthMessage", "Запись добавлена");
         return "birth";
