@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    display: flex;
+    flex-grow: 1;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.submit-button {
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 0.5em;
+    width: 400px;
+    height: 3.5em;
+    font-size: 1.4em;
+    background-color: #FFC300;
+    color: white;
+    cursor: pointer;
+}
+
+.snils-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.snils-inputs {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    flex-grow: 0.5;
+}
+
+.snils-label {
+    font-size: 24px;
+}
+
+.snils-input {
+    border: 1px solid #ABABAB;
+    border-radius: 10px;
+    background-color: #F1F1F1;
+    width: 400px;
+    height: 60px;
+    font-size: 28px;
+    padding-left: 10px;
+}
+
+.snils-input::placeholder {
+    font-weight: 100px;
+    font-size: 28px;
+}
+
+@media (max-width: 861px) {
+    .snils-inputs {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        justify-content: unset;
+    }
+
+    h1 {
+        font-size: 2.45em;
+    }
+}
+
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.45em;
+    }
+}
