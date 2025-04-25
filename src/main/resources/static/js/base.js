@@ -9,6 +9,11 @@ function updateInputDateClass(inputDate) {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
-    var input = document.getElementById("dateOfBirth");
-    updateInputDateClass(input);
-});
+    var inputElements = document.querySelectorAll(".date-input");
+
+    inputElements.forEach() {
+        function(input) {
+            updateInputDateClass(input);
+        }
+    }
+}

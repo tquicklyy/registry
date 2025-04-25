@@ -24,6 +24,14 @@
     color: #FFC300;
 }
 
+.input-date-with-opacity {
+    opacity: 0.6;
+}
+
+.input-date-without-opacity {
+    opacity: 1;
+}
+
 .error-message {
     color: red;
 }
