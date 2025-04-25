@@ -20,6 +20,28 @@ public class Citizen {
     @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BirthRecord> birthRecordsAsFather = new ArrayList<>();
 
+    public List<MarriageRegistration> getMarriagesAsHusband() {
+        return marriagesAsHusband;
+    }
+
+    public void setMarriagesAsHusband(List<MarriageRegistration> marriagesAsHusband) {
+        this.marriagesAsHusband = marriagesAsHusband;
+    }
+
+    public List<MarriageRegistration> getMarriagesAsWife() {
+        return marriagesAsWife;
+    }
+
+    public void setMarriagesAsWife(List<MarriageRegistration> marriagesAsWife) {
+        this.marriagesAsWife = marriagesAsWife;
+    }
+
+    @OneToMany(mappedBy = "husband")
+    private List<MarriageRegistration> marriagesAsHusband;
+
+    @OneToMany(mappedBy = "wife")
+    private List<MarriageRegistration> marriagesAsWife;
+
     public Citizen() { }
 
     public int getId() {

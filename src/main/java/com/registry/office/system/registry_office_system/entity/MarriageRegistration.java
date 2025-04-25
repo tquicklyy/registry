@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Entity
@@ -15,19 +16,17 @@ public class MarriageRegistration {
     @Column(name = "id")
     private int id;
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "husband_id", nullable = false)
     private Citizen husband;
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "wife_id", nullable = false)
     private Citizen wife;
 
     @NotNull
     @Column(name = "registration_date", nullable = false)
-    private LocalDate registrationDate;
+    private LocalDate registrationDate = LocalDate.now();
 
     @Column(name = "divorce_date")
     private LocalDate divorceDate;
@@ -70,5 +69,12 @@ public class MarriageRegistration {
 
     public void setDivorceDate(LocalDate divorceDate) {
         this.divorceDate = divorceDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        MarriageRegistration that = (MarriageRegistration) o;
+        return id == that.id && Objects.equals(husband, that.husband) && Objects.equals(wife, that.wife) && Objects.equals(registrationDate, that.registrationDate) && Objects.equals(divorceDate, that.divorceDate);
     }
 }

@@ -50,8 +50,8 @@ public class RegisterController {
 
         if(result.hasErrors()) return "register";
 
-        if(userService.existsBySnils(user.getSnils()) && !userService.findBySnils(user.getSnils()).isRegistered()) {
-            User registeredUser = userService.updateUser(userService.findBySnils(user.getSnils()), user);
+        if(userService.existsBySnils(user.getSnils()) && !userService.findBySnils(user.getSnils()).get().isRegistered()) {
+            User registeredUser = userService.updateUser(userService.findBySnils(user.getSnils()).get(), user);
             userService.saveUser(registeredUser);
         } else {
             user.setRegistered(true);
