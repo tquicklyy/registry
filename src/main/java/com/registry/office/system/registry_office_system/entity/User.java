@@ -72,11 +72,10 @@ public class User {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate dateOfBirth;
 
-    @NotNull
     @Size(max = 20, message = "Номер телефона не должен превышать 20 символов")
     @Pattern(regexp = "^8[0-9]{10}$",
             message = "Неверный формат номера телефона")
-    @Column(name = "phone", nullable = false, unique = true)
+    @Column(name = "phone", unique = true)
     private String phone;
 
     @Size(max = 255, message = "Номер телефона не должен превышать 255 символов")
