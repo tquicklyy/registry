@@ -15,13 +15,11 @@ public class MarriageRegistration {
     @Column(name = "id")
     private int id;
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "husband_id", nullable = false)
     private Citizen husband;
 
-    @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "wife_id", nullable = false)
     private Citizen wife;
 

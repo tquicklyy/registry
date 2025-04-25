@@ -92,16 +92,25 @@ public class AdminController {
         Citizen husband = citizenRepository.findById(husbandOptional.get().getPersonId()).get();
         Citizen wife = citizenRepository.findById(wifeOptional.get().getPersonId()).get();
 
-        boolean isHusbandMarried = marriageRegistrationRepository.findByHusband(husband).isEmpty();
-        boolean isWifeMarried = marriageRegistrationRepository.findByWife(wife).isEmpty();
-        if (!isHusbandMarried) {
-            model.addAttribute("husbandSnilsError", "Пользователь состоит в браке");
-        }
-        if (!isWifeMarried) {
-            model.addAttribute("wifeSnilsError", "Пользователь состоит в браке");
+        boolean isMarriagePossible = true;
+
+        for (MarriageRegistration marriageRegistration: husband.getMarriagesAsHusband()) {
+            if (marriageRegistration.getDivorceDate() == null) {
+                model.addAttribute("husbandSnilsError", "Пользователь состоит в браке");
+                isMarriagePossible = false;
+                break;
+            }
         }
 
-        if (!isHusbandMarried || !isWifeMarried) {
+        for (MarriageRegistration marriageRegistration: wife.getMarriagesAsWife()) {
+            if (marriageRegistration.getDivorceDate() == null) {
+                model.addAttribute("wifeSnilsError", "Пользователь состоит в браке");
+                isMarriagePossible = false;
+                break;
+            }
+        }
+
+        if (!isMarriagePossible) {
             return "marriage";
         }
 

@@ -8,6 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface MarriageRegistrationRepository extends JpaRepository<MarriageRegistration, Integer> {
-    Optional<MarriageRegistration> findByHusband(Citizen husband);
-    Optional<MarriageRegistration> findByWife(Citizen wife);
+
 }
