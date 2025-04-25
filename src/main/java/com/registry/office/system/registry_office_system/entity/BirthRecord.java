@@ -29,11 +29,6 @@ public class BirthRecord {
     @JoinColumn(name = "mother_id", nullable = false)
     private Citizen mother;
 
-    @NotNull
-    @Column(name = "place_of_birth", nullable = false)
-    @Size(max = 200)
-    private String placeOfBirth;
-
     public int getId() {
         return id;
     }
@@ -64,13 +59,5 @@ public class BirthRecord {
 
     public void setMother(Citizen mother) {
         this.mother = mother;
-    }
-
-    public String getPlaceOfBirth() {
-        return placeOfBirth;
-    }
-
-    public void setPlaceOfBirth(String placeOfBirth) {
-        this.placeOfBirth = placeOfBirth;
     }
 }

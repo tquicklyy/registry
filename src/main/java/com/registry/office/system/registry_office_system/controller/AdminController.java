@@ -1,19 +1,15 @@
 package com.registry.office.system.registry_office_system.controller;
 
-import com.registry.office.system.registry_office_system.entity.Citizen;
-import com.registry.office.system.registry_office_system.entity.DivorceRegistration;
-import com.registry.office.system.registry_office_system.entity.MarriageRegistration;
-import com.registry.office.system.registry_office_system.entity.User;
+import com.registry.office.system.registry_office_system.entity.*;
+import com.registry.office.system.registry_office_system.enums.Gender;
+import com.registry.office.system.registry_office_system.repository.birthRecord.BirthRecordRepository;
 import com.registry.office.system.registry_office_system.repository.citizen.CitizenRepository;
 import com.registry.office.system.registry_office_system.repository.divorceRegistration.DivorceRegistrationRepository;
 import com.registry.office.system.registry_office_system.repository.marriageRegistration.MarriageRegistrationRepository;
 import com.registry.office.system.registry_office_system.service.user.UserService;
-import com.registry.office.system.registry_office_system.entity.DeathRegistration;
-import com.registry.office.system.registry_office_system.entity.User;
-import com.registry.office.system.registry_office_system.repository.citizen.CitizenRepository;
 import com.registry.office.system.registry_office_system.repository.deathRegistration.DeathRegistrationRepository;
-import com.registry.office.system.registry_office_system.service.user.UserService;
 import jakarta.validation.Valid;
+import org.hibernate.usertype.UserCollectionType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -23,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -44,6 +41,9 @@ public class AdminController {
     @Autowired
     MarriageRegistrationRepository marriageRegistrationRepository;
 
+    @Autowired
+    BirthRecordRepository birthRecordRepository;
+
     @GetMapping("")
     public String getAdminForm() {
         return "admin";
@@ -51,7 +51,90 @@ public class AdminController {
 
     @GetMapping("/birth-record")
     public String getBirthRecordForm() {
-        return "birth-record";
+        return "birth";
+    }
+
+    @PostMapping("/birth-record")
+    public String confirmBirthRecord(
+            @RequestParam(name = "husbandSnils") String husbandSnils,
+            @RequestParam(name = "wifeSnils") String wifeSnils,
+            @RequestParam(name = "childSnils") String childSnils,
+            @RequestParam(name = "birthDate") LocalDate birthDate,
+            Model model) {
+        model.addAttribute("husbandSnils", husbandSnils);
+        model.addAttribute("wifeSnils", wifeSnils);
+        model.addAttribute("childSnils", childSnils);
+        model.addAttribute("birthDate", birthDate);
+
+        boolean husbandSnilsMatches = husbandSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}$");
+        boolean wifeSnilsMatches = wifeSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
+        boolean childSnilsMatches = childSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
+        boolean dateCheck = birthDate.isBefore(LocalDate.now());
+
+        if (!husbandSnilsMatches) {
+            model.addAttribute("husbandSnilsError", "Неверный формат СНИЛС'а");
+        }
+        if (!wifeSnilsMatches) {
+            model.addAttribute("wifeSnilsError", "Неверный формат СНИЛС'а");
+        }
+        if (!childSnilsMatches) {
+            model.addAttribute("childSnilsError", "Неверный формат СНИЛС'а");
+        }
+        if (!dateCheck) {
+            model.addAttribute("registrationDateError", "Некорректная дата");
+        }
+
+        if (!husbandSnilsMatches || !wifeSnilsMatches || !childSnilsMatches || !dateCheck) {
+            return "birth";
+        }
+
+        Optional<User> husbandOptional = userService.findBySnils(husbandSnils);
+        Optional<User> wifeOptional = userService.findBySnils(wifeSnils);
+
+        if (husbandOptional.isEmpty() || !husbandOptional.get().isEnabled()) {
+            model.addAttribute("husbandSnilsError", "Пользователь не найден");
+        }
+        if (wifeOptional.isEmpty() || !wifeOptional.get().isEnabled()) {
+            model.addAttribute("wifeSnilsError", "Пользователь не найден");
+        }
+
+        if (husbandOptional.isEmpty() || !husbandOptional.get().isEnabled() || wifeOptional.isEmpty() || !wifeOptional.get().isEnabled()) {
+            return "birth";
+        }
+
+        Optional<User> childOptional = userService.findBySnils(childSnils);
+        if (!childOptional.isEmpty()) {
+            model.addAttribute("childSnilsError", "Пользователь уже существует");
+            return "birth";
+        }
+
+        User child = new User();
+        String uuid = UUID.randomUUID().toString();
+        child.setGender(Gender.MALE);
+        child.setUsername(uuid);
+        child.setPassword(uuid);
+        child.setEnabled(true);
+        child.setRegistered(false);
+        child.setName(uuid);
+        child.setSurname(uuid);
+        child.setPatronymic(uuid);
+        child.setSnils(childSnils);
+        child.setDateOfBirth(birthDate);
+
+        Citizen childCitizen = new Citizen();
+        childCitizen = citizenRepository.save(childCitizen);
+        child.setPersonId(childCitizen.getId());
+
+        BirthRecord birthRecord = new BirthRecord();
+        Citizen citizenFather = citizenRepository.findById(husbandOptional.get().getPersonId()).get();
+        Citizen citizenMother = citizenRepository.findById(wifeOptional.get().getPersonId()).get();
+        birthRecord.setFather(citizenFather);
+        birthRecord.setMother(citizenMother);
+        birthRecord.setChild(childCitizen);
+        birthRecordRepository.save(birthRecord);
+
+        model.addAttribute("birthMessage", "Запись добавлена");
+        return "birth";
     }
 
     @GetMapping("/marriage-registration")
