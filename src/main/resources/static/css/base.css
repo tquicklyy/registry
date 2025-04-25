@@ -19,6 +19,17 @@
     color: #FFC300;
 }
 
+body {
+    background-image: url("/images/index-background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+input {
+    background-color: transparent;
+}
+
 .header-link {
     text-decoration: none;
     color: #FFC300;
