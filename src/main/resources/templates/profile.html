@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Вход</title>
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <link href="../static/css/profile.css" th:href="@{/css/profile.css}" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<div class="container">
+    <div class="user-info">
+        <img src="/images/empty_photo.jpg" alt="Нет картинки" class="profile-image">
+        <div class="user-info-text">
+            <h1 class="profile-user-name" th:text="${name}" th:if="${name}">Пидор Еблан Вагинович</h1>
+            <p class="profile-main-info-text" th:text="'Дата рождения: ' + ${date_of_birth}" th:if="${date_of_birth}">Дата рождения: 89386944744</p>
+            <p class="profile-main-info-text" th:text="'Электропочта: ' + ${email}" th:if="${email}">gledunito@yandex.ru</p>
+            <p class="profile-main-info-text" th:text="'Номер телефона: ' + ${phone}" th:if="${phone}">89386944744</p>
+            <p class="profile-main-info-text" th:text="'Пол: ' + ${gender}" th:if="${gender}">Пидор</p>
+            <p class="profile-main-info-text" th:text="'СНИЛС: ' + ${snils}" th:if="${snils}">snus</p>
+        </div>
+    </div>
+    <div class="documents">
+        <h1>Информация</h1>
+        <ul>
+            <li class="profile-main-info-text" style="list-style-type: none;" th:each="item : ${items}" th:text="${item}"></li>
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+</body>
+</html>
