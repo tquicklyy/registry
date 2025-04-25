@@ -6,6 +6,7 @@ import com.registry.office.system.registry_office_system.entity.MarriageRegistra
 import com.registry.office.system.registry_office_system.entity.User;
 import com.registry.office.system.registry_office_system.repository.citizen.CitizenRepository;
 import com.registry.office.system.registry_office_system.repository.divorceRegistration.DivorceRegistrationRepository;
+import com.registry.office.system.registry_office_system.repository.marriageRegistration.MarriageRegistrationRepository;
 import com.registry.office.system.registry_office_system.service.user.UserService;
 import com.registry.office.system.registry_office_system.entity.DeathRegistration;
 import com.registry.office.system.registry_office_system.entity.User;
@@ -17,10 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -38,6 +37,12 @@ public class AdminController {
 
     @Autowired
     DeathRegistrationRepository deathRegistrationRepository;
+
+    @Autowired
+    DivorceRegistrationRepository divorceRegistrationRepository;
+
+    @Autowired
+    MarriageRegistrationRepository marriageRegistrationRepository;
 
     @GetMapping("")
     public String getAdminForm() {
