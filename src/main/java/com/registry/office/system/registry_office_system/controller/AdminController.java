@@ -115,9 +115,9 @@ public class AdminController {
         child.setPassword(uuid);
         child.setEnabled(true);
         child.setRegistered(false);
-        child.setName(uuid);
-        child.setSurname(uuid);
-        child.setPatronymic(uuid);
+        child.setName("Отсутсутсвует");
+        child.setSurname("Отсутсутсвует");
+        child.setPatronymic("Отсутсутсвует");
         child.setSnils(childSnils);
         child.setDateOfBirth(birthDate);
 
