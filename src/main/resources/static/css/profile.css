@@ -45,6 +45,7 @@ body {
         margin-top: 20px;
         display: flex;
         align-items: center;
+        margin-left: 0px;
     }
 
     .documents {
@@ -55,6 +56,6 @@ body {
 
 @media (max-width: 361px) {
     .profile-user-name {
-        font-size: 20px;
+        ont-size: 20px;
     }
 }
