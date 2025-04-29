@@ -24,20 +24,6 @@ h1 {
     text-align: center;
 }
 
-.submit-button {
-    font-family: Inter, sans-serif;
-    font-weight: 500;
-    border: none;
-    border-radius: 0.5em;
-    width: 400px;
-    height: 3.5em;
-    font-size: 1.4em;
-    background-color: #FFC300;
-    color: white;
-    cursor: pointer;
-    margin-top: 20px;
-}
-
 .snils-form {
     display: flex;
     flex-direction: column;
@@ -73,6 +59,27 @@ h1 {
     font-size: 28px;
 }
 
+.submit-button {
+    font-family: Inter, sans-serif;
+    font-weight: 500;
+    border: none;
+    border-radius: 0.5em;
+    width: 400px;
+    height: 3.5em;
+    font-size: 1.4em;
+    background-color: #FFC300;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.go-back-button {
+    display: flex;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 861px) {
     .snils-inputs {
         display: flex;
@@ -82,6 +89,10 @@ h1 {
 
     h1 {
         font-size: 2.45em;
+    }
+
+    .go-back-button {
+        margin-top: 20px;
     }
 }
 
@@ -99,5 +110,9 @@ h1 {
 
     .submit-button {
         margin-top: 0px;
+    }
+
+    .go-back-button {
+        margin-top: 20px;
     }
 }
