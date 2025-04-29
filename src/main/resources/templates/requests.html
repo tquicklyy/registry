@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/css/requests.css" th:href="@{/css/requests.css}" rel="stylesheet" />
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <title>Заявки</title>
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<section>
+    <div class="container">
+        <div class="header-of-request-box upper">
+            <h1>Заявки</h1>
+
+            <div class="div-with-buttons">
+                <a class="a-new-request" th:href="@{/requests/new-request}">Подать заявку +</a>
+
+                <form th:action="/requests" method="get">
+                    <select name="status" onchange="this.form.submit()">
+                        <option value="" selected hidden>Статус</option>
+                        <option th:each="status: ${statuses}}"
+                                th:value="${status}"
+                                th:text="${status}"
+                                th:selected="${status == selectedStatus}">
+                        </option>
+                    </select>
+                </form>
+
+            </div>
+
+
+
+        </div>
+
+        <div th:each="request: ${requests}}" class="header-of-request-box request" th:attr="data-id=${request[0]}}">
+            <p class="name-text">
+                <span th:text="${request[1]}">Конников Глеб Владимирович</span>
+                <span class="user-action" th:text="${request[2]}}">Регистрация брака</span>
+            </p>
+            <p class="status-text" th:text="${request[3]}}">Ожидание</p>
+            <a class="a-follow" th:href="@{/requests/{data-id}}">Просмотреть</a>
+        </div>
+
+    </div>
+</section>
+
+<footer>
+
+</footer>
+
+<script src="/js/requests.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap');
+
+body {
+    font-family: "Arial", sans-serif;
+    font-weight: 300;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    display: flex;
+    flex-grow: 1;
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1em;
+    padding-top: 2em;
+    gap: 30px;
+}
+
+.header-of-request-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.upper {
+    margin-bottom: 2em;
+}
+
+.div-with-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.a-new-request {
+    text-decoration: none;
+    font-size: 1.5em;
+    margin-top: 13px;
+    margin-right: 30px;
+}
+
+.header-of-request-box h1 {
+    font-family: "Arial", sans-serif;
+    font-weight: 350;
+    font-size: 4em;
+    margin-left: 1.5em;
+}
+
+.name-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 98px;
+    gap: 5px;
+}
+
+.a-follow {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 96px;
+    width: 345px;
+    outline: none;
+    margin-right: 96px;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.user-action {
+    font-size: 0.7em;
+}
+
+.status-text,
+.name-text,
+.a-follow {
+    font-size: 2em;
+}
+
+.status-text-wait {
+    color: light yellow;
+}
+
+.status-text-in-work {
+    color: cyan;
+}
+
+.status-text-accept {
+    color: green;
+}
+
+.status-text-cancel {
+    color: red;
+}
+
+select {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+    font-size: 1.5em;
+    width: 350px;
+    outline: none;
+    padding-left: 0.1em;
+    margin-top: 13px;
+    margin-right: 96px;
+    border-radius: 10px;
+    border-width: 2px;
+}
+
+@media (max-width: 1200px) {
+    .header-of-request-box.request {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .name-text,
+    .a-follow {
+        margin: 0;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1000px) {
+    .header-of-request-box.upper,
+    .div-with-buttons {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    select,
+    .header-of-request-box h1,
+    .a-new-request {
+        margin: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .a-follow {
+        width: 295px;
+        font-size: 1.5em;
+    }
+
+    select {
+        width: 300px;
+    }
+}
+
+
+
+
+
+
