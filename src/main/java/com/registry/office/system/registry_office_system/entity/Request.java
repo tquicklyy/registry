@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "requests")
@@ -28,7 +28,7 @@ public class Request {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Column(name = "visit_date")
-    private LocalDate visitDate;
+    private LocalDateTime visitDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "operation", nullable = false)
@@ -41,7 +41,7 @@ public class Request {
     public Request() {
     }
 
-    public Request(Citizen applicant, Employee employee, LocalDate visitDate, Operation operation, Status status) {
+    public Request(Citizen applicant, Employee employee, LocalDateTime visitDate, Operation operation, Status status) {
         this.applicant = applicant;
         this.employee = employee;
         this.visitDate = visitDate;
@@ -73,11 +73,11 @@ public class Request {
         this.employee = employee;
     }
 
-    public LocalDate getVisitDate() {
+    public LocalDateTime getVisitDate() {
         return visitDate;
     }
 
-    public void setVisitDate(LocalDate visitDate) {
+    public void setVisitDate(LocalDateTime visitDate) {
         this.visitDate = visitDate;
     }
 

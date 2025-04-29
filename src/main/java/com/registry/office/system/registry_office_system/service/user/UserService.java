@@ -117,4 +117,9 @@ public class UserService {
         return beforeUser;
     }
 
+    public User findByRoleAndPersonId(Role role, int personId) {
+
+        return userRepository.findByRoleAndPersonId(role, personId).get();
+    }
+
 }

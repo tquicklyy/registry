@@ -26,12 +26,12 @@
             <div class="div-with-buttons">
                 <a class="a-new-request" th:href="@{/requests/new-request}">Подать заявку +</a>
 
-                <form th:action="/requests" method="get">
+                <form th:action="@{/requests}" method="get">
                     <select name="status" onchange="this.form.submit()">
-                        <option value="" selected hidden>Статус</option>
-                        <option th:each="status: ${statuses}}"
+                        <option value="" selected>Все статусы</option>
+                        <option th:each="status: ${statuses}"
                                 th:value="${status}"
-                                th:text="${status}"
+                                th:text="${status.description}"
                                 th:selected="${status == selectedStatus}">
                         </option>
                     </select>
@@ -43,13 +43,13 @@
 
         </div>
 
-        <div th:each="request: ${requests}}" class="header-of-request-box request" th:attr="data-id=${request[0]}}">
+        <div th:each="request: ${requests}" class="header-of-request-box request" th:attr="data-id=${request[0]}">
             <p class="name-text">
                 <span th:text="${request[1]}">Конников Глеб Владимирович</span>
-                <span class="user-action" th:text="${request[2]}}">Регистрация брака</span>
+                <span class="user-action" th:text="${request[2]}">Регистрация брака</span>
             </p>
-            <p class="status-text" th:text="${request[3]}}">Ожидание</p>
-            <a class="a-follow" th:href="@{/requests/{data-id}}">Просмотреть</a>
+            <p class="status-text" th:text="${request[3]}">Ожидание</p>
+            <a class="a-follow" th:href="@{/requests/{data-id}">Просмотреть</a>
         </div>
 
     </div>
