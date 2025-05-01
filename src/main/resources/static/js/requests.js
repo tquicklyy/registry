@@ -1,5 +1,5 @@
 function updateStatusClass(pWithStatus) {
-    if (pWithStatus.textContent === 'Ожидание') {
+    if (pWithStatus.textContent === 'Ожидает') {
         pWithStatus.classList.add('status-text-wait');
         pWithStatus.classList.remove('status-text-in-work');
         pWithStatus.classList.remove('status-text-accept');
@@ -25,9 +25,7 @@ function updateStatusClass(pWithStatus) {
 document.addEventListener("DOMContentLoaded", function() {
     var pWithStatus = document.querySelectorAll(".status-text");
 
-    inputElements.forEach() {
-        function(input) {
-            updateInputDateClass(pWithStatus);
-        }
-    }
-}
+    pWithStatus.forEach(function(p) {
+        updateStatusClass(p);
+    });
+});

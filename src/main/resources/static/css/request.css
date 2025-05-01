@@ -13,6 +13,11 @@ section {
     flex-grow: 1;
 }
 
+form {
+    display: flex;
+    flex-grow: 1;
+}
+
 .container {
     flex-grow: 1;
     display: flex;
@@ -33,17 +38,9 @@ section {
 
 .div-with-buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
-}
-
-.a-new-request {
-    text-decoration: none;
-    font-size: 1.5em;
-    margin-top: 13px;
-    margin-right: 30px;
-    color: black;
 }
 
 .header-of-request-box h1 {
@@ -60,78 +57,94 @@ section {
     gap: 5px;
 }
 
-.a-follow {
-    font-family: "Noto Sans", sans-serif;
-    font-weight: 350;
-    text-decoration: none;
-    text-align: center;
-    margin-right: 96px;
-    width: 345px;
-    outline: none;
-    margin-right: 96px;
-    border-radius: 10px;
-    border-width: 2px;
-    border-style: solid;
-    color: black;
-}
-
-.user-action {
+.user-action,
+.user-date,
+.administrator {
     font-size: 0.7em;
 }
 
-.status-text,
-.name-text,
-.a-follow {
+.name-text {
     font-size: 2em;
 }
 
-.status-text {
-    font-family: "Noto Sans", sans-serif;
-    font-weight: 350;
-    text-align: center;
-    width: 280px;
-    border: solid;
-    border-width: 2px;
-    border-radius: 10px;
-}
-
-.status-text-wait {
-    background-color: #FFE60B;
-}
-
-.status-text-in-work {
-    background-color: #7EBDFF;
-}
-
-.status-text-accept {
-    background-color: #00CC10;
-}
-
-.status-text-cancel {
-    background-color: red;
-}
-
-select {
-    font-family: "Noto Sans", sans-serif;
+.select-date {
     font-weight: 350;
     font-size: 1.5em;
     width: 350px;
-    outline: none;
     padding-left: 0.1em;
-    margin-top: 13px;
-    margin-right: 96px;
-    border-radius: 10px;
-    border-width: 2px;
 }
 
-@media (max-width: 1290px) {
+.select-date,
+.p-date {
+    font-size: 1.5em;
+    font-family: "Noto Sans", sans-serif;
+    margin-right: 96px;
+    margin-top: 13px;
+}
+
+.buttons {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px 96px 0px 96px;
+    gap: 1em;
+}
+
+.a-wait {
+    background-color: #FFE60B;
+}
+
+.a-in-work {
+    background-color: #7EBDFF;
+}
+
+.a-accept {
+    background-color: #00CC10;
+}
+
+.a-cancel {
+    background-color: red;
+}
+
+.select-date,
+.a-wait,
+.a-in-work,
+.a-accept,
+.a-cancel,
+.back-button {
+    border-radius: 10px;
+    border-width: 2px;
+    outline: none;
+    cursor: pointer;
+    border-style: solid;
+    color: black;
+    text-decoration: none;
+}
+
+.a-wait,
+.a-in-work,
+.a-accept,
+.a-cancel,
+.back-button {
+    width: 100%;
+    font-size: 1.9em;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+}
+
+.disable-link {
+    pointer-events: none;
+    cursor: default;
+}
+
+@media (max-width: 1200px) {
     .header-of-request-box.request {
         flex-direction: column;
         gap: 1em;
-    }
-
-    .status-text {
-        width: 345px;
     }
 
     .name-text,
@@ -148,22 +161,40 @@ select {
         gap: 1em;
     }
 
-    select,
+    .a-wait,
+    .a-in-work,
+    .a-accept,
+    .a-cancel,
+    .back-button {
+        font-size: 1.5em;
+    }
+
+    .select-date,
     .header-of-request-box h1,
     .a-new-request {
         margin: 0;
     }
-}
 
-@media (max-width: 900px) {
-    .a-follow,
-    .status-text {
-        width: 295px;
-        font-size: 1.5em;
+    .p-date {
+        margin: 0;
     }
 
-    select {
+    .select-date {
         width: 300px;
+    }
+}
+
+@media (max-width: 502px) {
+    .a-wait,
+    .a-in-work,
+    .a-accept,
+    .a-cancel,
+    .back-button {
+        width: 310px;
+    }
+
+    .buttons {
+        padding: 0;
     }
 }
 

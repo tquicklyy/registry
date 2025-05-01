@@ -3,8 +3,9 @@ package com.registry.office.system.registry_office_system.enums;
 public enum Status {
     WAIT("Ожидает"),
     IN_WORK("В работе"),
-    ACCEPT("Подтвержден"),
-    CANCEL("Отменен");
+    ACCEPT("Подтверждена"),
+    CANCEL("Отменена"),
+    ALL("Все статусы");
 
     private final String description;
 

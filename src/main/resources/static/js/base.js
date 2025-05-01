@@ -10,10 +10,9 @@ function updateInputDateClass(inputDate) {
 
 document.addEventListener("DOMContentLoaded", function() {
     var inputElements = document.querySelectorAll(".date-input");
+    console.log("я")
 
-    inputElements.forEach() {
-        function(input) {
-            updateInputDateClass(input);
-        }
-    }
-}
+    inputElements.forEach(function(input) {
+        updateInputDateClass(input);
+    });
+});

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/css/request.css" th:href="@{/css/request.css}" rel="stylesheet" />
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <title th:text="'Заявка №' + ${info[0]}">Заявка</title>
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<section>
+    <form id="request-form" th:action="@{/requests/request}" method="GET" th:attr="requestId=${info[0]}">
+        <div class="container">
+
+            <div class="header-of-request-box upper">
+                <h1>Заявка</h1>
+
+                <div th:if="${visitDates}" sec:authorize="hasRole('ROLE_EMPLOYEE')" class="div-with-buttons">
+                    <p class="p-date">Свободное время:</p>
+                    <select id="date-select" class="select-date" name="date">
+                        <option value="" selected hidden>Дата приёма</option>
+                        <option th:each="visitDate, iterStat : ${visitDates}"
+                                th:value="${visitDate}"
+                                th:text="${visitDate}"
+                                th:selected="${iterStat.index == 0}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="header-of-request-box request">
+                <p class="name-text">
+                    <span th:text="'Заявитель: ' + ${info[1]}">Заявитель: Г Г Г</span>
+                    <span class="user-action" th:text="'Операция: ' + ${info[2]}">Операция: Регистрация брака</span>
+                    <span class="user-date" th:if="${info[3]}" th:text="'Дата: ' + ${info[3]}">Дата: 28 апреля, 8:00 - 10:00</span>
+                    <span class="administrator" th:if="${info[4]}" th:text="'Модератор: ' + ${info[4]}">Модератор: Г Г</span>
+                </p>
+            </div>
+
+            <div class="buttons" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+                <a class="a-wait"
+                   th:if="${statuses.contains('WAIT')}"
+                   href="javascript:void(0);"
+                   onclick="sendForm('request-form', 'next-status=IN_WORK',
+                    document.getElementById('request-form').getAttribute('requestId'));">Взять в работу</a>
+
+                <a class="a-in-work"
+                   th:if="${statuses.contains('IN_WORK')}"
+                   href="javascript:void(0);"
+                   onclick="sendForm('request-form', 'next-status=ACCEPT',
+                    document.getElementById('request-form').getAttribute('requestId'));">Подтвердить</a>
+
+                <a class="a-cancel"
+                   th:if="${statuses.size() > 1}"
+                   href="javascript:void(0);"
+                   onclick="sendForm('request-form', 'next-status=CANCEL',
+                    document.getElementById('request-form').getAttribute('requestId'));">Отменить</a>
+
+                <a class="a-cancel disable-link"
+                   th:if="${statuses.size() == 1 && statuses.contains('CANCEL')}"
+                   href="javascript:void(0);">Отменена</a>
+
+                <a class="a-accept disable-link"
+                   th:if="${statuses.contains('ACCEPT')}"
+                   href="javascript:void(0);">Подтверждена</a>
+
+                <a class="back-button" href="javascript:void(0);" onclick="window.history.back()">К заявкам</a>
+            </div>
+
+            <div class="buttons" sec:authorize="hasRole('ROLE_CITIZEN')">
+                <a class="a-wait disable-link"
+                   th:if="${statuses.contains('WAIT')}"
+                   href="javascript:void(0);">Ожидание</a>
+
+                <a class="a-in-work disable-link"
+                   th:if="${statuses.contains('IN_WORK')}"
+                   href="javascript:void(0);">В работе</a>
+
+                <a class="a-cancel disable-link"
+                   th:if="${statuses.size() == 1 && statuses.contains('CANCEL')}"
+                   href="javascript:void(0);">Отменена</a>
+
+                <a class="a-accept disable-link"
+                   th:if="${statuses.contains('ACCEPT')}"
+                   href="javascript:void(0);">Подтверждена</a>
+
+                <a class="a-cancel"
+                   th:if="${statuses.size() > 1}"
+                   href="javascript:void(0);"
+                   onclick="sendForm('request-form', 'nextStatus=CANCEL',
+                    document.getElementById('request-form').getAttribute('requestId'));">Отменить</a>
+
+                <a class="back-button" href="javascript:void(0);" onclick="window.history.back()">К заявкам</a>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<footer>
+
+</footer>
+
+    <script src="/js/request.js"></script>
+</body>
+
+</html>
