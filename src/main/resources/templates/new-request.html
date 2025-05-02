@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../static/css/new-request.css" th:href="@{/css/new-request.css}" rel="stylesheet" />
+    <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
+    <title>Подача заявки</title>
+</head>
+
+<body>
+
+<header>
+    <div class="header">
+        <p><a class="header-link" href="/">ЗАГС</a></p>
+    </div>
+</header>
+
+<section>
+    <form id="request-form" th:action="@{/requests/new-request}" method="POST">
+        <div class="container">
+
+            <div class="header-of-request-box upper">
+                <h1>Подача заявки</h1>
+            </div>
+
+            <div class="header-of-request-box request">
+                <p class="operation-name">Выберите действие</p>
+                <select class="select-operation" name="operation-select" required>
+                    <option value="" selected hidden>Действие</option>
+                    <option th:each="operation: ${operations}"
+                            th:value="${operation}"
+                            th:text="${operation.description}">
+                    </option>
+                </select>
+            </div>
+
+            <div class="buttons" >
+                <p th:if="${addRequestError}" th:text="${addRequestError}" class="error-message"></p>
+                <p th:if="${addRequestMessage}" th:text="${addRequestMessage}" class="alert-success"></p>
+                <button class="send-button">Отправить заявку</button>
+                <a class="back-button" href="/requests?status=ALL">К заявкам</a>
+            </div>
+
+        </div>
+    </form>
+</section>
+
+<footer>
+
+</footer>
+
+<script src="/js/request.js"></script>
+</body>
+
+</html>

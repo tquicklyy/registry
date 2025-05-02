@@ -2,27 +2,27 @@ package com.registry.office.system.registry_office_system.controller;
 
 import com.registry.office.system.registry_office_system.config.CustomUserDetails;
 import com.registry.office.system.registry_office_system.entity.Citizen;
+import com.registry.office.system.registry_office_system.entity.Employee;
 import com.registry.office.system.registry_office_system.entity.Request;
 import com.registry.office.system.registry_office_system.entity.User;
+import com.registry.office.system.registry_office_system.enums.Operation;
 import com.registry.office.system.registry_office_system.enums.Role;
 import com.registry.office.system.registry_office_system.enums.Status;
 import com.registry.office.system.registry_office_system.repository.citizen.CitizenRepository;
+import com.registry.office.system.registry_office_system.repository.employee.EmployeeRepository;
 import com.registry.office.system.registry_office_system.repository.request.RequestRepository;
 import com.registry.office.system.registry_office_system.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/requests")
@@ -33,6 +33,9 @@ public class RequestController {
 
     @Autowired
     CitizenRepository citizenRepository;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @Autowired
     UserService userService;
@@ -107,6 +110,40 @@ public class RequestController {
         return "requests";
     }
 
+    @GetMapping("/request")
+    public String updateSelectedRequest(
+            @RequestParam("next-status") Status nextStatus,
+            @RequestParam int requestId,
+            @RequestParam(required = false) String date
+    ) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+
+        Request currentRequest = requestRepository.findById(requestId).get();
+
+        if(user.getRole().equals(Role.EMPLOYEE)) {
+            Employee employee = employeeRepository.findById(user.getPersonId()).get();
+
+            if(nextStatus.equals(Status.IN_WORK)) {
+                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                 LocalDateTime visitDate = LocalDateTime.parse(date, formatter);
+
+                 currentRequest.setStatus(Status.IN_WORK);
+                 currentRequest.setEmployee(employee);
+                 currentRequest.setVisitDate(visitDate);
+            } else if(nextStatus.equals(Status.ACCEPT)) {
+                currentRequest.setStatus(Status.ACCEPT);
+            } else {
+                currentRequest.setStatus(Status.CANCEL);
+            }
+        } else {
+            currentRequest.setStatus(Status.CANCEL);
+        }
+
+        requestRepository.save(currentRequest);
+        return String.format("redirect:/requests/request/%s", requestId);
+    }
+
     @GetMapping("/request/{id}")
     public String getSelectedRequest(
             @PathVariable int id,
@@ -128,7 +165,7 @@ public class RequestController {
                 {
                     LocalDateTime currentTime = LocalDateTime.now();
 
-                    currentTime = currentTime.withMinute(0).withSecond(0).plusHours(2);
+                    currentTime = currentTime.withMinute(0).withSecond(0).withNano(0).plusHours(2);
 
                     ArrayList<String> visitDates = new ArrayList<>();
                     int countOfVisitDates = 0;
@@ -185,5 +222,57 @@ public class RequestController {
         model.addAttribute("statuses" , statuses);
 
         return "request";
+    }
+
+    @GetMapping("/new-request")
+    public String getNewRequestForm(Model model) {
+        ArrayList<Operation> operations = new ArrayList<>();
+        operations.add(Operation.BIRTH);
+        operations.add(Operation.MARRIAGE);
+        operations.add(Operation.DIVORCE);
+        operations.add(Operation.DEATH);
+
+        model.addAttribute("operations", operations);
+
+        return "new-request";
+    }
+
+    @PostMapping("/new-request")
+    public String addNewRequest(
+            @RequestParam(name = "operation-select") Operation selectOperation,
+            Model model
+    ) {
+        CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+
+        Optional<Request> foundOptionalRequest = requestRepository.findByOperation(selectOperation);
+
+        ArrayList<Operation> operations = new ArrayList<>();
+        operations.add(Operation.BIRTH);
+        operations.add(Operation.MARRIAGE);
+        operations.add(Operation.DIVORCE);
+        operations.add(Operation.DEATH);
+
+        model.addAttribute("operations", operations);
+
+        if(foundOptionalRequest.isPresent()) {
+            Request foundRequest = foundOptionalRequest.get();
+            if(foundRequest.getStatus().equals(Status.IN_WORK) || foundRequest.getStatus().equals(Status.WAIT)) {
+                model.addAttribute("addRequestError", "Заявка с данной операцией уже подана!");
+                return "new-request";
+            }
+        }
+
+        Request newRequest = new Request();
+
+        newRequest.setStatus(Status.WAIT);
+        newRequest.setApplicant(citizenRepository.findById(user.getPersonId()).get());
+        newRequest.setOperation(selectOperation);
+
+        requestRepository.save(newRequest);
+
+        model.addAttribute("addRequestMessage", "Заявка успешно добавлена!");
+
+        return "new-request";
     }
 }

@@ -36,11 +36,9 @@ form {
     width: 100%;
 }
 
-.div-with-buttons {
-    display: flex;
+.header-of-request-box.request {
     flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    align-items: stretch;
 }
 
 .header-of-request-box h1 {
@@ -50,35 +48,22 @@ form {
     margin-left: 1.5em;
 }
 
-.name-text {
+.operation-name {
     display: flex;
     flex-direction: column;
     margin-left: 98px;
+    font-size: 2em;
     gap: 5px;
 }
 
-.user-action,
-.user-date,
-.administrator {
-    font-size: 0.7em;
-}
-
-.name-text {
-    font-size: 2em;
-}
-
-.select-date {
+.select-operation {
     font-weight: 350;
     font-size: 1.5em;
     width: 350px;
     padding-left: 0.1em;
-}
-
-.select-date,
-.p-date {
     font-size: 1.5em;
     font-family: "Noto Sans", sans-serif;
-    margin-right: 96px;
+    margin-left: 98px;
     margin-top: 13px;
 }
 
@@ -96,28 +81,20 @@ form {
     gap: 2em;
 }
 
-.a-wait {
+.send-button,
+.error-message,
+.alert-success {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+}
+
+.send-button {
     background-color: #FFE60B;
 }
 
-.a-in-work {
-    background-color: #7EBDFF;
-}
-
-.a-accept {
-    background-color: #00CC10;
-}
-
-.a-cancel {
-    background-color: #F23A3A;
-}
-
-.select-date,
-.a-wait,
-.a-in-work,
-.a-accept,
-.a-cancel,
-.back-button {
+.select-operation,
+.back-button,
+.send-button {
     border-radius: 10px;
     border-width: 2px;
     outline: none;
@@ -127,71 +104,66 @@ form {
     text-decoration: none;
 }
 
-.a-wait,
-.a-in-work,
-.a-accept,
-.a-cancel,
-.back-button {
+.back-button,
+.send-button {
     width: 100%;
     font-size: 1.9em;
     text-align: center;
     padding: 10px 0px 10px 0px;
 }
 
-.disable-link {
-    pointer-events: none;
-    cursor: default;
+.error-message,
+.alert-success {
+    font-size: 1.9em;
 }
 
-@media (max-width: 1200px) {
+.alert-success {
+    color: #6EE900;
+}
+
+@media (max-width: 1000px) {
     .header-of-request-box.request {
-        flex-direction: column;
+        align-items: center;
         gap: 1em;
     }
 
-    .name-text,
-    .a-follow {
+    .operation-name,
+    .select-operation {
         margin: 0;
+    }
+
+    .operation-name,
+    h1 {
         text-align: center;
     }
 }
 
 @media (max-width: 1000px) {
-    .header-of-request-box.upper,
-    .div-with-buttons {
+    .header-of-request-box.upper {
         flex-direction: column;
         gap: 1em;
     }
 
-    .a-wait,
-    .a-in-work,
-    .a-accept,
-    .a-cancel,
-    .back-button {
+    .back-button,
+    .send-button,
+    .error-message,
+    .alert-success{
         font-size: 1.5em;
     }
 
-    .select-date,
-    .header-of-request-box h1,
-    .a-new-request {
+    .select-operation,
+    .header-of-request-box h1 {
         margin: 0;
     }
 
-    .p-date {
-        margin: 0;
-    }
-
-    .select-date {
+    .select-operation {
         width: 300px;
     }
 }
 
 @media (max-width: 502px) {
-    .a-wait,
-    .a-in-work,
-    .a-accept,
-    .a-cancel,
-    .back-button {
+    .back-button,
+    .send-button {
         width: 310px;
     }
 

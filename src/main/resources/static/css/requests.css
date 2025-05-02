@@ -108,7 +108,7 @@ section {
 }
 
 .status-text-cancel {
-    background-color: red;
+    background-color: #F23A3A;
 }
 
 select {
@@ -159,16 +159,10 @@ select {
     .a-follow,
     .status-text {
         width: 295px;
-        font-size: 1.5em;
+        font-size: 1.7em;
     }
 
     select {
         width: 300px;
     }
 }
-
-
-
-
-
-
