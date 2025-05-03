@@ -37,6 +37,7 @@
                 </label>
 
                 <p th:if="${confirmMarriageMessage}" th:text="${confirmMarriageMessage}" class="alert alert-success"></p>
+                <p th:if="${confirmMarriageErrorMessage}" th:text="${confirmMarriageErrorMessage}" class="alert alert-danger"></p>
             </div>
 
             <button class="submit-button">Зарегистрировать брак</button>
