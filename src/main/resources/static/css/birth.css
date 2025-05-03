@@ -91,3 +91,15 @@ h1 {
         font-size: 2.45em;
     }
 }
+
+.child-label {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.date-label {
+    margin-bottom: 20px;
+}

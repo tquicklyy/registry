@@ -31,12 +31,18 @@
                     <p th:if="${wifeSnilsError}" th:text="${wifeSnilsError}" class="error-message"></p>
                 </label>
 
-                <label class="snils-label">Ребенок<br>
+                <label class="snils-label child-label">Ребенок<br>
                     <input name="childSnils" type="text" class="snils-input" placeholder="СНИЛС">
                     <p th:if="${childSnilsError}" th:text="${childSnilsError}" class="error-message"></p>
+                    <input name="childSurname" type="text" class="snils-input" placeholder="Фамилия">
+                    <p th:if="${childSurnameError}" th:text="${childSurnameError}" class="error-message"></p>
+                    <input name="childName" type="text" class="snils-input" placeholder="Имя">
+                    <p th:if="${childNameError}" th:text="${childNameError}" class="error-message"></p>
+                    <input name="childPatronymic" type="text" class="snils-input" placeholder="Отчество (опционально)">
+                    <p th:if="${childPatronymicError}" th:text="${childPatronymicError}" class="error-message"></p>
                 </label>
 
-                <label class="snils-label">Дата<br>
+                <label class="snils-label date-label">Дата<br>
                     <input class="date-input snils-input" type="date" name="birthDate" oninput="updateInputDateClass(this)" placeholder="Дата рождения" required> <br>
                     <p th:if="${birthDateError}" th:text="${birthDateError}" class="error-message"></p>
                 </label>
