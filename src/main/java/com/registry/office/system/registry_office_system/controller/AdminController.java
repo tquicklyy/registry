@@ -60,6 +60,8 @@ public class AdminController {
             @RequestParam(name = "wifeSnils") String wifeSnils,
             @RequestParam(name = "childSnils") String childSnils,
             @RequestParam(name = "birthDate") LocalDate birthDate,
+            @RequestParam(name = "regionCode") String regionCode,
+            @RequestParam(name = "registryCode") String registryCode,
             Model model) {
         model.addAttribute("husbandSnils", husbandSnils);
         model.addAttribute("wifeSnils", wifeSnils);
@@ -70,6 +72,8 @@ public class AdminController {
         boolean wifeSnilsMatches = wifeSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
         boolean childSnilsMatches = childSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
         boolean dateCheck = birthDate.isBefore(LocalDate.now());
+        boolean regionCodeMatches = regionCode.matches("^[IVXLCDM]+$");
+        boolean registryCodeMatches = registryCode.matches("^[А-Я]{2}$");
 
         if (!husbandSnilsMatches) {
             model.addAttribute("husbandSnilsError", "Неверный формат СНИЛС'а");
@@ -84,7 +88,14 @@ public class AdminController {
             model.addAttribute("registrationDateError", "Некорректная дата");
         }
 
-        if (!husbandSnilsMatches || !wifeSnilsMatches || !childSnilsMatches || !dateCheck) {
+        if (!regionCodeMatches) {
+            model.addAttribute("regionCodeError", "Неверный формат");
+        }
+        if (!registryCodeMatches) {
+            model.addAttribute("registryCodeError", "Неверный формат");
+        }
+
+        if (!husbandSnilsMatches || !wifeSnilsMatches || !childSnilsMatches || !dateCheck || !registryCodeMatches || !regionCodeMatches) {
             return "birth";
         }
 
@@ -132,6 +143,8 @@ public class AdminController {
         birthRecord.setFather(citizenFather);
         birthRecord.setMother(citizenMother);
         birthRecord.setChild(childCitizen);
+        birthRecord.setRegistryCode(registryCode);
+        birthRecord.setRegionCode(regionCode);
         birthRecordRepository.save(birthRecord);
         userService.registerUser(child);
 
@@ -149,6 +162,8 @@ public class AdminController {
             @RequestParam(name = "husbandSnils") String husbandSnils,
             @RequestParam(name = "wifeSnils") String wifeSnils,
             @RequestParam(name = "registrationDate") LocalDate registrationDate,
+            @RequestParam(name = "regionCode") String regionCode,
+            @RequestParam(name = "registryCode") String registryCode,
             Model model) {
         model.addAttribute("husbandSnils", husbandSnils);
         model.addAttribute("wifeSnils", wifeSnils);
@@ -157,6 +172,8 @@ public class AdminController {
         boolean husbandSnilsMatches = husbandSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}$");
         boolean wifeSnilsMatches = wifeSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
         boolean dateCheck = registrationDate.isBefore(LocalDate.now());
+        boolean regionCodeMatches = regionCode.matches("^[IVXLCDM]+$");
+        boolean registryCodeMatches = registryCode.matches("^[А-Я]{2}$");
 
         if (!husbandSnilsMatches) {
             model.addAttribute("husbandSnilsError", "Неверный формат СНИЛС'а");
@@ -168,7 +185,14 @@ public class AdminController {
             model.addAttribute("registrationDateError", "Некорректная дата");
         }
 
-        if (!husbandSnilsMatches || !wifeSnilsMatches || !dateCheck) {
+        if (!regionCodeMatches) {
+            model.addAttribute("regionCodeError", "Неверный формат");
+        }
+        if (!registryCodeMatches) {
+            model.addAttribute("registryCodeError", "Неверный формат");
+        }
+
+        if (!husbandSnilsMatches || !wifeSnilsMatches || !dateCheck || !registryCodeMatches || !regionCodeMatches) {
             return "marriage";
         }
 
@@ -215,6 +239,8 @@ public class AdminController {
         marriageRegistration.setHusband(husband);
         marriageRegistration.setWife(wife);
         marriageRegistration.setRegistrationDate(registrationDate);
+        marriageRegistration.setRegionCode(regionCode);
+        marriageRegistration.setRegistryCode(registryCode);
         marriageRegistrationRepository.save(marriageRegistration);
 
         model.addAttribute("confirmMarriageMessage", "Запись добавлена!");
@@ -288,6 +314,8 @@ public class AdminController {
             @RequestParam(name = "wifeSnils") String wifeSnils,
             @RequestParam(name = "divorceDate") LocalDate divorceDate,
             @RequestParam(name = "causeOfDivorce") String causeOfDivorce,
+            @RequestParam(name = "regionCode") String regionCode,
+            @RequestParam(name = "registryCode") String registryCode,
             Model model) {
         model.addAttribute("husbandSnils", husbandSnils);
         model.addAttribute("wifeSnils", wifeSnils);
@@ -296,6 +324,8 @@ public class AdminController {
         boolean husbandSnilsMatches = husbandSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}$");
         boolean wifeSnilsMatches = wifeSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}");
         boolean dateCheck = divorceDate.isBefore(LocalDate.now());
+        boolean regionCodeMatches = regionCode.matches("^[IVXLCDM]+$");
+        boolean registryCodeMatches = registryCode.matches("^[А-Я]{2}$");
 
         if (!husbandSnilsMatches) {
             model.addAttribute("husbandSnilsError", "Неверный формат СНИЛС'а");
@@ -307,7 +337,14 @@ public class AdminController {
             model.addAttribute("registrationDateError", "Некорректная дата");
         }
 
-        if (!husbandSnilsMatches || !wifeSnilsMatches || !dateCheck) {
+        if (!regionCodeMatches) {
+            model.addAttribute("regionCodeError", "Неверный формат");
+        }
+        if (!registryCodeMatches) {
+            model.addAttribute("registryCodeError", "Неверный формат");
+        }
+
+        if (!husbandSnilsMatches || !wifeSnilsMatches || !dateCheck || !registryCodeMatches || !regionCodeMatches) {
             return "divorce";
         }
 
@@ -368,6 +405,8 @@ public class AdminController {
         divorceRegistration.setMarriageRegistration(marriageRegistrationHusband);
         divorceRegistration.setDivorceDate(divorceDate);
         divorceRegistration.setReason(causeOfDivorce);
+        divorceRegistration.setRegionCode(regionCode);
+        divorceRegistration.setRegistryCode(registryCode);
         marriageRegistrationHusband.setDivorceDate(divorceDate);
         divorceRegistrationRepository.save(divorceRegistration);
 

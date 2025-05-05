@@ -36,6 +36,16 @@
                     <p th:if="${registrationDateError}" th:text="${registrationDateError}" class="error-message"></p>
                 </label>
 
+                <label class="snils-label">Код региона<br>
+                    <input name="regionCode" type="text" class="snils-input" placeholder="Код региона" required>
+                    <p th:if="${regionCodeError}" th:text="${regionCodeError}" class="error-message"></p>
+                </label>
+
+                <label class="snils-label">Регистрационный код<br>
+                    <input name="registryCode" type="text" class="snils-input" placeholder="Регистрационный код" required>
+                    <p th:if="${registryCodeError}" th:text="${registryCodeError}" class="error-message"></p>
+                </label>
+
                 <p th:if="${confirmMarriageMessage}" th:text="${confirmMarriageMessage}" class="alert alert-success"></p>
             </div>
 

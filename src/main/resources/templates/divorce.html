@@ -40,6 +40,16 @@
           <input name="causeOfDivorce" type="text" class="snils-input" placeholder="Причина развода" required>
         </label>
 
+        <label class="snils-label" style="margin-top: 20px;">Код региона<br>
+          <input name="regionCode" type="text" class="snils-input" placeholder="Код региона" required>
+          <p th:if="${regionCodeError}" th:text="${regionCodeError}" class="error-message"></p>
+        </label>
+
+        <label class="snils-label">Регистрационный код<br>
+          <input name="registryCode" type="text" class="snils-input" placeholder="Регистрационный код" required>
+          <p th:if="${registryCodeError}" th:text="${registryCodeError}" class="error-message"></p>
+        </label>
+
         <p th:if="${divorceMessage}" th:text="${divorceMessage}" class="alert alert-success"></p>
         <p th:if="${divorceErrorMessage}" th:text="${divorceErrorMessage}" class="alert alert-danger"></p>
       </div>

@@ -2,6 +2,8 @@ package com.registry.office.system.registry_office_system.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -30,6 +32,33 @@ public class MarriageRegistration {
 
     @Column(name = "divorce_date")
     private LocalDate divorceDate;
+
+    @NotNull
+    @Column(name = "region_code", nullable = false)
+    @Pattern(regexp = "^[IVXLCDM]+$", message = "Неверный формат кода региона")
+    private String regionCode;
+
+    public String getRegionCode() {
+        return regionCode;
+    }
+
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
+
+    @NotNull
+    @Column(name = "registry_code", nullable = false)
+    @Pattern(regexp = "^[А-Я]{2}$", message = "Неверный формат регистрационного кода")
+    @Size(min = 2, max = 2)
+    private String registryCode;
+
+    public String getRegistryCode() {
+        return registryCode;
+    }
+
+    public void setRegistryCode(String registryCode) {
+        this.registryCode = registryCode;
+    }
 
     public int getId() {
         return id;

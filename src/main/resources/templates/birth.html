@@ -41,6 +41,16 @@
                     <p th:if="${birthDateError}" th:text="${birthDateError}" class="error-message"></p>
                 </label>
 
+                <label class="snils-label">Код региона<br>
+                    <input name="regionCode" type="text" class="snils-input" placeholder="Код региона" required>
+                    <p th:if="${regionCodeError}" th:text="${regionCodeError}" class="error-message"></p>
+                </label>
+
+                <label class="snils-label">Регистрационный код<br>
+                    <input name="registryCode" type="text" class="snils-input" placeholder="Регистрационный код" required>
+                    <p th:if="${registryCodeError}" th:text="${registryCodeError}" class="error-message"></p>
+                </label>
+
                 <p th:if="${birthMessage}" th:text="${birthMessage}" class="alert alert-success"></p>
                 <p th:if="${birthErrorMessage}" th:text="${birthErrorMessage}" class="alert alert-danger"></p>
             </div>

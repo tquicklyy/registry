@@ -61,6 +61,10 @@ public class UserService {
         return userRepository.existsByPhone(phone);
     }
 
+    public Optional<User> findByPersonId(int personId) {
+        return userRepository.findByPersonId(personId);
+    }
+
     public Optional<User> findBySnils(String snils) {
         return userRepository.findBySnils(snils);
     }
@@ -115,6 +119,10 @@ public class UserService {
         beforeUser.setEmail(newUser.getEmail());
 
         return beforeUser;
+    }
+
+    public Optional<User> findByRoleAndPersonId(Role role, int personId) {
+        return userRepository.findByRoleAndPersonId(role, personId);
     }
 
 }
