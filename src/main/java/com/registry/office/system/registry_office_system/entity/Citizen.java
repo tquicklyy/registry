@@ -23,6 +23,9 @@ public class Citizen {
     @OneToMany(mappedBy = "father", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BirthRecord> birthRecordsAsFather = new ArrayList<>();
 
+    @OneToMany(mappedBy = "applicant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Request> requests = new ArrayList<>();
+
     public List<MarriageRegistration> getMarriagesAsHusband() {
         return marriagesAsHusband;
     }
@@ -87,5 +90,11 @@ public class Citizen {
         this.deathRegistration = deathRegistration;
     }
 
+    public List<Request> getRequests() {
+        return requests;
+    }
 
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
+    }
 }

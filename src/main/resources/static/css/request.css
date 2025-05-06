@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    display: flex;
+    flex-grow: 1;
+}
+
+form {
+    display: flex;
+    flex-grow: 1;
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1em;
+    padding-top: 2em;
+    gap: 62px;
+}
+
+.header-of-request-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.div-with-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-of-request-box h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 350;
+    font-size: 4em;
+    margin-left: 1.5em;
+}
+
+.name-text {
+    display: flex;
+    flex-direction: column;
+    margin-left: 98px;
+    gap: 5px;
+}
+
+.user-action,
+.user-date,
+.administrator {
+    font-size: 0.7em;
+}
+
+.name-text {
+    font-size: 2em;
+}
+
+.select-date {
+    font-weight: 350;
+    font-size: 1.5em;
+    width: 350px;
+    padding-left: 0.1em;
+}
+
+.select-date,
+.p-date {
+    font-size: 1.5em;
+    font-family: "Noto Sans", sans-serif;
+    margin-right: 96px;
+    margin-top: 13px;
+}
+
+.buttons {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 96px 0px 96px;
+    flex-grow: 1;
+    gap: 2em;
+}
+
+.a-wait {
+    background-color: #FFE60B;
+}
+
+.a-in-work {
+    background-color: #7EBDFF;
+}
+
+.a-accept {
+    background-color: #00CC10;
+}
+
+.a-cancel {
+    background-color: #F23A3A;
+}
+
+.select-date,
+.a-wait,
+.a-in-work,
+.a-accept,
+.a-cancel,
+.back-button {
+    border-radius: 10px;
+    border-width: 2px;
+    outline: none;
+    cursor: pointer;
+    border-style: solid;
+    color: black;
+    text-decoration: none;
+}
+
+.a-wait,
+.a-in-work,
+.a-accept,
+.a-cancel,
+.back-button {
+    width: 100%;
+    font-size: 1.9em;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+}
+
+.disable-link {
+    pointer-events: none;
+    cursor: default;
+}
+
+@media (max-width: 1200px) {
+    .header-of-request-box.request {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .name-text,
+    .a-follow {
+        margin: 0;
+        text-align: center;
+    }
+}
+
+@media (max-width: 1000px) {
+    .header-of-request-box.upper,
+    .div-with-buttons {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .a-wait,
+    .a-in-work,
+    .a-accept,
+    .a-cancel,
+    .back-button {
+        font-size: 1.5em;
+    }
+
+    .select-date,
+    .header-of-request-box h1,
+    .a-new-request {
+        margin: 0;
+    }
+
+    .p-date {
+        margin: 0;
+    }
+
+    .select-date {
+        width: 300px;
+    }
+}
+
+@media (max-width: 502px) {
+    .a-wait,
+    .a-in-work,
+    .a-accept,
+    .a-cancel,
+    .back-button {
+        width: 310px;
+    }
+
+    .buttons {
+        padding: 0;
+    }
+}

@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Unbounded:wght@200..900&display=swap');
+
+body {
+    font-family: "Inter", sans-serif;
+    font-weight: 300;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+section {
+    display: flex;
+    flex-grow: 1;
+}
+
+form {
+    display: flex;
+    flex-grow: 1;
+}
+
+.container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 1em;
+    padding-top: 2em;
+    gap: 62px;
+}
+
+.header-of-request-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header-of-request-box.request {
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.header-of-request-box h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 350;
+    font-size: 4em;
+    margin-left: 1.5em;
+}
+
+.operation-name {
+    display: flex;
+    flex-direction: column;
+    margin-left: 98px;
+    font-size: 2em;
+    gap: 5px;
+}
+
+.select-operation {
+    font-weight: 350;
+    font-size: 1.5em;
+    width: 350px;
+    padding-left: 0.1em;
+    font-size: 1.5em;
+    font-family: "Noto Sans", sans-serif;
+    margin-left: 98px;
+    margin-top: 13px;
+}
+
+.buttons {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 96px 0px 96px;
+    flex-grow: 1;
+    gap: 2em;
+}
+
+.send-button,
+.error-message,
+.alert-success {
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 350;
+}
+
+.send-button {
+    background-color: #FFE60B;
+}
+
+.select-operation,
+.back-button,
+.send-button {
+    border-radius: 10px;
+    border-width: 2px;
+    outline: none;
+    cursor: pointer;
+    border-style: solid;
+    color: black;
+    text-decoration: none;
+}
+
+.back-button,
+.send-button {
+    width: 100%;
+    font-size: 1.9em;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+}
+
+.error-message,
+.alert-success {
+    font-size: 1.9em;
+}
+
+.alert-success {
+    color: #6EE900;
+}
+
+@media (max-width: 1000px) {
+    .header-of-request-box.request {
+        align-items: center;
+        gap: 1em;
+    }
+
+    .operation-name,
+    .select-operation {
+        margin: 0;
+    }
+
+    .operation-name,
+    h1 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 1000px) {
+    .header-of-request-box.upper {
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .back-button,
+    .send-button,
+    .error-message,
+    .alert-success{
+        font-size: 1.5em;
+    }
+
+    .select-operation,
+    .header-of-request-box h1 {
+        margin: 0;
+    }
+
+    .select-operation {
+        width: 300px;
+    }
+}
+
+@media (max-width: 502px) {
+    .back-button,
+    .send-button {
+        width: 310px;
+    }
+
+    .buttons {
+        padding: 0;
+    }
+}
