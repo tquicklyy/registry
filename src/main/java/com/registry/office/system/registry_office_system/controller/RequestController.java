@@ -245,7 +245,7 @@ public class RequestController {
         CustomUserDetails userDetails = (CustomUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDetails.getUser();
 
-        Optional<Request> foundOptionalRequest = requestRepository.findByOperation(selectOperation);
+        Optional<Request> foundOptionalRequest = requestRepository.findByOperationAndApplicantId(selectOperation, user.getPersonId());
 
         ArrayList<Operation> operations = new ArrayList<>();
         operations.add(Operation.BIRTH);
