@@ -186,6 +186,11 @@ public class AdminController {
             return "marriage";
         }
 
+        if (husbandOptional.get().getGender() == wifeOptional.get().getGender()) {
+            model.addAttribute("confirmMarriageErrorMessage", "Нельзя зарегистрировать брак людей одного пола");
+            return "marriage";
+        }
+
         Citizen husband = citizenRepository.findById(husbandOptional.get().getPersonId()).get();
         Citizen wife = citizenRepository.findById(wifeOptional.get().getPersonId()).get();
 
