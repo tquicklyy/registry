@@ -85,7 +85,7 @@ public class RequestController {
 
             for (Request currentRequest: requests) {
                 currentList = new ArrayList<>();
-                currentUser = userService.findByRoleAndPersonId(Role.CITIZEN, currentRequest.getApplicant().getId());
+                currentUser = userService.findByRoleAndPersonId(Role.CITIZEN, currentRequest.getApplicant().getId()).get();
 
                 currentList.add(String.valueOf(currentRequest.getId()));
                 currentList.add(String.format("%s %s %s", currentUser.getSurname(), currentUser.getName(), currentUser.getPatronymic()));
@@ -159,7 +159,7 @@ public class RequestController {
 
         if(user.getRole().equals(Role.EMPLOYEE)) {
 
-            user = userService.findByRoleAndPersonId(Role.CITIZEN, currentRequest.getApplicant().getId());
+            user = userService.findByRoleAndPersonId(Role.CITIZEN, currentRequest.getApplicant().getId()).get();
 
             if(status.equals(Status.WAIT)) {
                 {
@@ -204,7 +204,7 @@ public class RequestController {
             info[3] = currentRequest.getVisitDate().format(formatter);
         }
         if(currentRequest.getEmployee() != null) {
-            User employee = userService.findByRoleAndPersonId(Role.EMPLOYEE, currentRequest.getEmployee().getId());
+            User employee = userService.findByRoleAndPersonId(Role.EMPLOYEE, currentRequest.getEmployee().getId()).get();
             info[4] = String.format("%s %s %s", employee.getSurname(), employee.getName(), employee.getPatronymic());
         }
 

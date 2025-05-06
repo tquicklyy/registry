@@ -80,6 +80,10 @@ h1 {
     justify-content: center;
 }
 
+.alert {
+    margin-top: 20px;
+}
+
 @media (max-width: 861px) {
     .snils-inputs {
         display: flex;
@@ -106,10 +110,6 @@ h1 {
 @media (max-width: 500px) {
     .snils-input, .submit-button {
         width: 300px;
-    }
-
-    .submit-button {
-        margin-top: 0px;
     }
 
     .go-back-button {

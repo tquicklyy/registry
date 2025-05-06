@@ -20,7 +20,7 @@
     <div class="user-info">
         <img src="/images/empty_photo.jpg" alt="Нет картинки" class="profile-image">
         <div class="user-info-text">
-            <h1 class="profile-user-name" th:text="${name}" th:if="${name}"></h1>
+            <h1 class="profile-user-name" th:text="${name}" th:if="${name}">ЗАВЫЗАЗВЗАЫВХАВЫ АВХЫАХВЫАХ АВХАВЫХАВХЫАХВЫХАВЫХ</h1>
             <p class="profile-main-info-text" th:text="'Дата рождения: ' + ${date_of_birth}" th:if="${date_of_birth}"></p>
             <p class="profile-main-info-text" th:text="'Электропочта: ' + ${email}" th:if="${email}"></p>
             <p class="profile-main-info-text" th:text="'Номер телефона: ' + ${phone}" th:if="${phone}"></p>
@@ -30,7 +30,7 @@
     </div>
     <div class="documents">
         <h1>Информация</h1>
-        <ul>
+        <ul class="ul-class">
             <li class="profile-main-info-text" style="list-style-type: none;" th:each="item : ${items}">
                 <span th:each="subItem : ${item}" th:utext="${subItem + '<br/>'}"></span><br>
             </li>
