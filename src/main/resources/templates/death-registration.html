@@ -35,6 +35,16 @@
                     <input th:field="*{causeOfDeath}" type="text" class="inputs-input" placeholder="Причина смерти" required>
                 </label>
 
+                <label>
+                    <input th:field="*{regionCode}" type="text" class="inputs-input" placeholder="Код региона" required>
+                    <p th:if="${#fields.hasErrors('regionCode')}" th:errors="*{regionCode}" class="error-message"></p>
+                </label>
+
+                <label>
+                    <input th:field="*{registryCode}" type="text" class="inputs-input" placeholder="Регистрационный код" required>
+                    <p th:if="${#fields.hasErrors('registryCode')}" th:errors="*{registryCode}" class="error-message"></p>
+                </label>
+
                 <p th:if="${confirmDeathError}" th:text="${confirmDeathError}" class="error-message"></p>
             </div>
 
