@@ -59,6 +59,9 @@ public class AdminController {
             @RequestParam(name = "husbandSnils") String husbandSnils,
             @RequestParam(name = "wifeSnils") String wifeSnils,
             @RequestParam(name = "childSnils") String childSnils,
+            @RequestParam(name = "childSurname") String childSurname,
+            @RequestParam(name = "childName") String childName,
+            @RequestParam(name = "childPatronymic") String childPatronymic,
             @RequestParam(name = "birthDate") LocalDate birthDate,
             @RequestParam(name = "regionCode") String regionCode,
             @RequestParam(name = "registryCode") String registryCode,
@@ -66,6 +69,9 @@ public class AdminController {
         model.addAttribute("husbandSnils", husbandSnils);
         model.addAttribute("wifeSnils", wifeSnils);
         model.addAttribute("childSnils", childSnils);
+        model.addAttribute("childSurname", childSurname);
+        model.addAttribute("childName", childName);
+        model.addAttribute("childPatronymic", childPatronymic);
         model.addAttribute("birthDate", birthDate);
 
         boolean husbandSnilsMatches = husbandSnils.matches("^\\d{3}-\\d{3}-\\d{3} \\d{2}$");
@@ -74,6 +80,13 @@ public class AdminController {
         boolean dateCheck = birthDate.isBefore(LocalDate.now());
         boolean regionCodeMatches = regionCode.matches("^[IVXLCDM]+$");
         boolean registryCodeMatches = registryCode.matches("^[А-Я]{2}$");
+        boolean childSurnameMatches = childSurname.matches("^[А-Яа-яA-Za-z\\-\\s]*$");
+        boolean childNameMatches = childName.matches("^[А-Яа-яA-Za-z\\-\\s]*$");
+        boolean childPatronymicMatches = childPatronymic.matches("^[А-Яа-яA-Za-z\\-\\s]*$");
+        if (childPatronymic.isEmpty()) {
+            childPatronymic = null;
+            childPatronymicMatches = true;
+        }
 
         if (!husbandSnilsMatches) {
             model.addAttribute("husbandSnilsError", "Неверный формат СНИЛС'а");
@@ -119,6 +132,20 @@ public class AdminController {
             return "birth";
         }
 
+        if (!childSurnameMatches) {
+            model.addAttribute("childSurnameError", "Некорректная запись");
+        }
+        if (!childNameMatches) {
+            model.addAttribute("childNameError", "Некорректная запись");
+        }
+        if (!childPatronymicMatches) {
+            model.addAttribute("childPatronymicError", "Некорректная запись");
+        }
+
+        if (!childNameMatches || !childSurnameMatches || !childPatronymicMatches) {
+            return "birth";
+        }
+
         User child = new User();
         String uuid = UUID.randomUUID().toString();
         child.setGender(Gender.MALE);
@@ -126,9 +153,9 @@ public class AdminController {
         child.setPassword(uuid);
         child.setEnabled(true);
         child.setRegistered(false);
-        child.setName("Отсутсутсвует");
-        child.setSurname("Отсутсутсвует");
-        child.setPatronymic("Отсутсутсвует");
+        child.setName(childName);
+        child.setSurname(childSurname);
+        child.setPatronymic(childPatronymic);
         child.setSnils(childSnils);
         child.setDateOfBirth(birthDate);
 
