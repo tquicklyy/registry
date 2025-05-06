@@ -1,12 +1,13 @@
 package com.registry.office.system.registry_office_system.controller;
 
 import com.registry.office.system.registry_office_system.config.CustomUserDetails;
-import com.registry.office.system.registry_office_system.entity.Citizen;
-import com.registry.office.system.registry_office_system.entity.MarriageRegistration;
-import com.registry.office.system.registry_office_system.entity.User;
+import com.registry.office.system.registry_office_system.entity.*;
 import com.registry.office.system.registry_office_system.enums.Gender;
+import com.registry.office.system.registry_office_system.enums.Role;
 import com.registry.office.system.registry_office_system.repository.citizen.CitizenRepository;
+import com.registry.office.system.registry_office_system.repository.divorceRegistration.DivorceRegistrationRepository;
 import com.registry.office.system.registry_office_system.repository.marriageRegistration.MarriageRegistrationRepository;
+import com.registry.office.system.registry_office_system.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,12 @@ public class ProfileController {
 
     @Autowired
     CitizenRepository citizenRepository;
+
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    DivorceRegistrationRepository divorceRegistrationRepository;
 
     @GetMapping("/my-documents")
     public String getMyDocuments(Model model) {
@@ -51,13 +58,57 @@ public class ProfileController {
             marriageRegistrations = person.getMarriagesAsWife();
         }
 
-        ArrayList<String> information = new ArrayList<>();
+        List<BirthRecord> birthRecords;
+        if (user.getGender().equals(Gender.MALE)) {
+            birthRecords = person.getBirthRecordsAsFather();
+        } else {
+            birthRecords = person.getBirthRecordsAsMother();
+        }
+
+        Citizen additionalCitizen;
+        User additionalUser;
+        DivorceRegistration divorceRegistration;
+        ArrayList<String> blockOfInfo;
+        ArrayList<ArrayList<String>> information = new ArrayList<>();
+
         for (MarriageRegistration marriageRegistration : marriageRegistrations) {
-            if (marriageRegistration.getDivorceDate() == null) {
-                information.add(0, "Пользователь состоит в браке.");
+            blockOfInfo = new ArrayList<>();
+            if (user.getGender().equals(Gender.MALE)) {
+                additionalCitizen = marriageRegistration.getWife();
             } else {
-                information.add(String.format("Пользователь состоял в браке с %s по %s", marriageRegistration.getRegistrationDate().format(formatter), marriageRegistration.getDivorceDate().format(formatter)));
+                additionalCitizen = marriageRegistration.getHusband();
             }
+
+            additionalUser = userService.findByRoleAndPersonId(Role.CITIZEN, additionalCitizen.getId()).get();
+
+            if (marriageRegistration.getDivorceDate() == null) {
+                blockOfInfo.add("Пользователь состоит в браке.");
+                blockOfInfo.add(String.format("ФИО партнера: %s %s %s", additionalUser.getSurname(), additionalUser.getName(), additionalUser.getPatronymic()));
+                blockOfInfo.add(String.format("СНИЛС партнера: %s", additionalUser.getSnils()));
+                blockOfInfo.add(String.format("Дата регистрации брака: %s", marriageRegistration.getRegistrationDate().format(formatter)));
+                blockOfInfo.add(String.format("Номер документа: %s-%s № %06d", marriageRegistration.getRegionCode(), marriageRegistration.getRegistryCode(), marriageRegistration.getId()));
+                information.add(0, blockOfInfo);
+            } else {
+                divorceRegistration = divorceRegistrationRepository.findByMarriageRegistration(marriageRegistration).get();
+                blockOfInfo.add("Пользователь состоял в браке.");
+                blockOfInfo.add(String.format("ФИО партнера: %s %s %s", additionalUser.getSurname(), additionalUser.getName(), additionalUser.getPatronymic()));
+                blockOfInfo.add(String.format("СНИЛС партнера: %s", additionalUser.getSnils()));
+                blockOfInfo.add(String.format("Дата регистрации брака: %s", marriageRegistration.getRegistrationDate().format(formatter)));
+                blockOfInfo.add(String.format("Дата расторжения брака: %s", divorceRegistration.getDivorceDate().format(formatter)));
+                blockOfInfo.add(String.format("Номер документа: %s-%s № %06d", divorceRegistration.getRegionCode(), divorceRegistration.getRegistryCode(), divorceRegistration.getId()));
+                information.add(blockOfInfo);
+            }
+        }
+
+        for (BirthRecord birthRecord : birthRecords) {
+            blockOfInfo = new ArrayList<>();
+            additionalCitizen = birthRecord.getChild();
+            additionalUser = userService.findByPersonId(additionalCitizen.getId()).get();
+            blockOfInfo.add("У пользователя есть ребенок");
+            blockOfInfo.add(String.format("ФИО: %s %s %s", additionalUser.getSurname(), additionalUser.getName(), additionalUser.getPatronymic()));
+            blockOfInfo.add(String.format("СНИЛС: %s", additionalUser.getSnils()));
+            blockOfInfo.add(String.format("Номер документа: %s-%s № %06d", birthRecord.getRegionCode(), birthRecord.getRegistryCode(), birthRecord.getId()));
+            information.add(blockOfInfo);
         }
 
         model.addAttribute("name", name);
