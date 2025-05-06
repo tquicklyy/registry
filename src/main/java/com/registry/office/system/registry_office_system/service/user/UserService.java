@@ -118,7 +118,6 @@ public class UserService {
     }
 
     public User findByRoleAndPersonId(Role role, int personId) {
-
         return userRepository.findByRoleAndPersonId(role, personId).get();
     }
 
