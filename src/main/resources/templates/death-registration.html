@@ -27,7 +27,7 @@
                 </label>
 
                 <label>
-                    <input class="date-input inputs-input" type="date" th:field="*{deathDate}" oninput="updateInputDateClass(this)" placeholder="Дата смерти" required> <br>
+                    <input class="inputs-input" type="date" th:field="*{deathDate}" placeholder="Дата смерти" required> <br>
                     <p th:if="${#fields.hasErrors('deathDate')}" th:errors="*{deathDate}" class="error-message"></p>
                 </label>
 
@@ -53,8 +53,6 @@
         </form>
     </div>
 </section>
-
-<script src="/js/base.js"></script>
 
 </body>
 </html>
