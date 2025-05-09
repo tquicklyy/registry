@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Вход</title>
+    <title>Мои документы</title>
     <link href="../static/css/base.css" th:href="@{/css/base.css}" rel="stylesheet" />
     <link href="../static/css/profile.css" th:href="@{/css/profile.css}" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -20,7 +20,7 @@
     <div class="user-info">
         <img src="/images/empty_photo.jpg" alt="Нет картинки" class="profile-image">
         <div class="user-info-text">
-            <h1 class="profile-user-name" th:text="${name}" th:if="${name}"></h1>
+            <h1 class="profile-user-name" th:text="${name}" th:if="${name}">ЗАВЫЗАЗВЗАЫВХАВЫ АВХЫАХВЫАХ АВХАВЫХАВХЫАХВЫХАВЫХ</h1>
             <p class="profile-main-info-text" th:text="'Дата рождения: ' + ${date_of_birth}" th:if="${date_of_birth}"></p>
             <p class="profile-main-info-text" th:text="'Электропочта: ' + ${email}" th:if="${email}"></p>
             <p class="profile-main-info-text" th:text="'Номер телефона: ' + ${phone}" th:if="${phone}"></p>
@@ -30,7 +30,7 @@
     </div>
     <div class="documents">
         <h1>Информация</h1>
-        <ul>
+        <ul class="ul-class">
             <li class="profile-main-info-text" style="list-style-type: none;" th:each="item : ${items}">
                 <span th:each="subItem : ${item}" th:utext="${subItem + '<br/>'}"></span><br>
             </li>

@@ -34,6 +34,10 @@ body {
     flex-direction: column;
 }
 
+.ul-class {
+    padding-left: 0;
+}
+
 @media (max-width: 861px) {
     .user-info {
         display: flex;
@@ -46,6 +50,10 @@ body {
         display: flex;
         align-items: center;
         margin-left: 0px;
+    }
+
+    .profile-user-name {
+        text-align: center;
     }
 
     .documents {

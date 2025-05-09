@@ -107,6 +107,7 @@ public class ProfileController {
             blockOfInfo.add("У пользователя есть ребенок");
             blockOfInfo.add(String.format("ФИО: %s %s %s", additionalUser.getSurname(), additionalUser.getName(), additionalUser.getPatronymic()));
             blockOfInfo.add(String.format("СНИЛС: %s", additionalUser.getSnils()));
+            blockOfInfo.add(String.format("Дата рождения: %s", additionalUser.getDateOfBirth().format(formatter)));
             blockOfInfo.add(String.format("Номер документа: %s-%s № %06d", birthRecord.getRegionCode(), birthRecord.getRegistryCode(), birthRecord.getId()));
             information.add(blockOfInfo);
         }

@@ -2,6 +2,8 @@
 package com.registry.office.system.registry_office_system.repository.request;
 
 import com.registry.office.system.registry_office_system.entity.Citizen;
+import com.registry.office.system.registry_office_system.entity.DivorceRegistration;
+import com.registry.office.system.registry_office_system.entity.MarriageRegistration;
 import com.registry.office.system.registry_office_system.entity.Request;
 import com.registry.office.system.registry_office_system.enums.Operation;
 import com.registry.office.system.registry_office_system.enums.Status;
@@ -16,5 +18,5 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
     List<Request> findByApplicant(Citizen applicant);
     List<Request> findByStatus(Status status);
     Optional<Request> findByVisitDate(LocalDateTime visitDate);
-    Optional<Request> findByOperation(Operation operation);
+    Optional<Request> findByOperationAndApplicantId(Operation operation, int applicantId);
 }

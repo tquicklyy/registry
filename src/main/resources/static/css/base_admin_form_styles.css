@@ -80,6 +80,10 @@ h1 {
     justify-content: center;
 }
 
+.alert {
+    margin-top: 20px;
+}
+
 @media (max-width: 861px) {
     .snils-inputs {
         display: flex;
@@ -108,11 +112,18 @@ h1 {
         width: 300px;
     }
 
-    .submit-button {
-        margin-top: 0px;
-    }
-
     .go-back-button {
         margin-top: 20px;
     }
+}
+.child-label {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.date-label {
+    margin-bottom: 20px;
 }
